@@ -1,319 +1,280 @@
-# Setup
+# Configuração
 
-Before you start the LARP you'll need to do some prep work.
+Antes de começar o LARP, você precisará fazer alguns preparativos.
 
-Estimated time:
+Tempo estimado:
 
-- To build/put together node materials: 20m
-- To assemble materials for each node: 10m
+- Para construir/montar os materiais do nó: 20 minutos
+- Para reunir os materiais para cada nó: 10 minutos
 
-If it's your first time playing, you'll need more time to do initial setup.
-A lot of the parts can be re-used thereafter.
+Se for a sua primeira vez jogando, você precisará de mais tempo para a configuração inicial. Muitas das partes podem ser reutilizadas depois.
 
-You'll probably want to re-create the Genesis + First Network Transactions
-every game though. This is the most time consuming part of the game.
+Provavelmente, você vai querer recriar as Transação Gênese + Primeiras Transações da Rede em cada jogo. Esta é a parte mais demorada do jogo.
 
+## Índice
 
-## Table of Contents
-
-  * [To Start](#to-start)
-  * [Room Configuration](#room-configuration)
-  * [Other Facilitators](#other-facilitators)
-  * [Rewards for Nodes](#rewards-for-nodes)
-  * [Materials for Each Node](#materials-for-each-node)
-  * [Purposeful Mistakes](#purposeful-mistakes)
-  * [Things to Build / Put Together](#things-to-build-put-together)
-    * [Mempool + UTXO Baskets](#mempool-utxo-baskets)
-    * [Block Templates](#block-templates)
-    * [Genesis Transaction](#genesis-transaction)
-    * [Genesis Blocks](#genesis-blocks)
-    * [First Network Transaction](#first-network-transaction)
+  * [Para Começar](#para-começar)
+  * [Configuração da Sala](#configuração-da-sala)
+  * [Outros Facilitadores](#outros-facilitadores)
+  * [Recompensas para os Nós](#recompensas-para-os-nós)
+  * [Materiais para Cada Nó](#materiais-para-cada-nó)
+  * [Erros Propositais](#erros-propositais)
+  * [Coisas para Construir e Montar](#coisas-para-construir-e-montar)
+    * [Cestos Mempool e UTXO](#cestos-mempool-e-utxo)
+    * [Templates de Bloco](#templates-de-bloco)
+    * [Transação Gênese](#transação-gênese)
+    * [Bloco Gênese](#bloco-gênese)
+    * [Primeira Transação da Rede](#primeira-transação-da-rede)
     * [Blockchain](#blockchain)
-    * [Secret Key Cards](#secret-key-cards)
+    * [Cartões de Chave Secreta](#cartões-de-chave-secreta)
 
-## To Start
+## Para Começar
 
-To get started you'll need to put together the materials that
-go in each original "bitcoin-core" download. Here's the materials
-to put together for each node.
+Para começar, você precisará reunir os materiais que vão em cada download original do "bitcoin-core". Aqui estão os materiais para reunir para cada nó.
 
+## Configuração da Sala
 
-## Room Configuration
+Você precisará de 6 mesas que estejam aproximadamente à distância de um braço (1,80 m) uma da outra. Cada mesa deve ter cadeiras suficientes para 2 a 6 jogadores.
 
-You'll need 6 tables that are approximately arm's length
-(6' ft) apart from each other. Each table should have
-enough chairs for 2-6 players.
+Uma configuração de mesa de café ou banquete geralmente funciona muito bem.
 
-A cafe table or banquet setup often works quite well.
+## Outros Facilitadores
 
-## Other Facilitators
+Conduzir um LARP é muita informação e passos novos. Nós recomendamos fortemente ter assistentes ou LARPers experientes (ou Bitcoiners) em cada mesa para ajudar os participantes a não ficarem para trás.
 
-Running a LARP is a lot of new information and steps. We
-highly recommend having assistants or experienced LARPers
-(or Bitcoiners) at each table or so in order to help participants
-not fall behind.
+Você pode conduzir com um único facilitador, no entanto, recomendamos aumentar o tempo alocado para cada fase para ter tempo adicional para ajudar cada nó a completar os passos.
 
-You can run it with a single facilitator, however we'd recommend
-extending the amount of time allotted for each phase for additional
-time to help each node complete the steps.
+## Recompensas para os Nós
 
+Há duas fases competitivas no jogo: [inserir transações nas mempools](docs/04-networking.md#goals-for-this-phase) e a fase final de jogo de [mineração de blocos](docs/07-wrapup.md#achieving-our-goals).
 
-## Rewards for Nodes
+Você não precisa distribuir Recompensas, mas isso definitivamente torna a participação mais recompensadora.
 
-There's two phases which are competitive in the game: [getting transactions
-into mempools](docs/04-networking.md#goals-for-this-phase) and the final gameplay of [mining blocks](#docs/07-wrapup.md#achieving-our-goals).
+Aqui estão algumas ideias do que distribuir:
 
-You don't have to hand out Rewards but it definitely makes participating
-more rewarding.
+- Um minerador adicional para o seu nó (fase apenas de mempool)
+- Doces ou chocolates embalados individualmente
+- Adesivos
+- Satoshis via Lightning
+- Códigos de desconto para [ingressos de conferência](https://btcpp.dev)
+- Vouchers para próximas aulas da [Base58](https://base58.school)
 
+## Materiais para Cada Nó
 
-Here's some ideas of what to hand out:
+Cada nó precisa receber os seguintes materiais.
 
-- An additional miner for your node (mempool only phase)
-- Candy or individually wrapped chocolates
-- Stickers
-- Satoshis over Lightning
-- [Conference ticket](https://btcpp.dev) discount codes
-- Vouchers for upcoming [Base58](https://base58.school) classes
+Recomendamos colocar todos os itens dentro de uma das Cestas de Plástico.
 
+Veja a [Lista de Materiais](../BOM.md) para saber o que obter e como fazer cada uma das partes necessárias.
 
-## Materials for Each Node
+- 1 Cesta de Plástico rotulada Mempool
+- 1 Cesta de Plástico rotulada Conjunto UTXO
+- 5 Argolas de fichário
+- 1 Blockchain (Caixa de Cartão de Índice com Bloco Gênese)
+- 10 Templates de Bloco
+- 10 cartões de Cabeçalho de Bloco em branco
+- 10 cartões de Bloco Compacto em branco
+- 30 cartões de Transação em branco
+FIXME: formato da página de adesivo?
+- 7 páginas de adesivo de Chave (1 de cada cor de chave secreta, mais o preto)
+- 7 páginas de adesivo de Cadeado (1 de cada cor de chave secreta, mais o preto)
+- 1 carimbo de "aprovado"
+- 1 Cartão de Chave Secreta
+- 3 canetas esferográficas
+- 1 marcador de quadro branco
+- 1 Minerador
+- 5 cartões de rede "I Have Transactions"
+- 5 cartões de rede "Send Transaction"
+- 5 cartões de rede "I Have Block"
+- 5 cartões de rede "Send Block"
+- 1 Lista de Verificação de Validação de Transação + Bloco
+- 1 Cartão de Pontuação do Nó
 
-Each node needs to receive the following materials.
+## Erros Propositais
 
-I'd recommend placing all items inside one of the Plastic Baskets.
+Na configuração, criamos vários erros. Isso permite que os usuários aprendam a identificar erros e corrigi-los.
 
-See the [Bill of Materials](../BOM.md) for what to get
-and how to make each of the required parts.
+Lista de erros dados:
 
-	- 1 Plastic Basket labeled Mempool
-	- 1 Plastic Basket labeled UTXO set
-	- 5 Loose leaf binder rings
-	- 1 Blockchain (Index Card Case w/ Genesis Block)
-	- 10 Block Templates
-	- 10 blank Block Header cards
-	- 10 blank Compact Block cards
-	- 30 blank Transaction cards
-	FIXME: sticker page format?
-	- 7 Key sticker pages (1 of each secret key color, plus black)
-	- 7 Lock sticker pages (1 of each secret key color, plus black)
-	- 1 Self-inking approved stamp
-	- 1 Secret Key Card
-	- 3 Ballpoint pents
-	- 1 Dry erase marker
-	- 1 Miner
-	- 5 I Have Transactions network cards
-	- 5 Send Transactions network cards
-	- 5 I Have Blocks network cards
-	- 5 Send Blocks network cards
-	- 1 Transaction + Block Validation Checklist
-	- 1 Node Scorecard
+- a transação coinbase do bloco gênese inicial gasta apenas 49, não 50 bitcoins;
+- a primeira transação da rede está faltando uma assinatura;
 
-## Purposeful Mistakes
+## Coisas para Construir e Montar
 
-In the setup we create a number of errors. This allows for users to
-learn how to spot mistakes and correct them.
+Usando os materiais da [Lista de Materiais](../BOM.md), você precisará montar os seguintes itens.
 
-List of given mistakes:
+Observe que tanto as [Primeira Transação da Rede](#primeira-transação-da-rede) quanto a [Transação Gênese](#transação-gênese) são marcadas e escritas durante o LARP. Recomenda-se que você recrie um conjunto novo antes de cada LARP.
 
-- the initial genesis coinbase transaction only spends 49, not 50 bitcoin
-- the first network transaction is missing a signature
+### Cestos Mempool e UTXO
 
+Estes são para transações que seu nó recebeu, seja da rede ou dentro de um bloco.
 
-## Things to Build / Put Together
+Eles precisam ser rotulados antes de jogar.
 
-Using the materials from the [BOM](../BOM.md), you'll need to assemble the following items.
+FIXME: Foto dos cestos!
 
-Note that both the [First Network Transactions](#first-network-transactions) and the
-[Genesis Transactions](#genesis-transaction) get marked up and written on during
-the LARP. It's recommended that you recreate a fresh set before every LARP.
+#### Materiais Necessários
 
+Você deve ter o seguinte
 
-### Mempool + UTXO Baskets
+- 12 Cestas de Plástico;
+- 6 Adesivos de Mempool;
+- 6 Adesivos de Conjunto UTXO;
 
-These are for transactions that your node has received, either from
-the network or inside a block.
+#### Passos
 
-They need to be labeled before playing.
+Para cada cesto:
 
-FIXME: Photo of baskets!
+1. Coloque 1 adesivo no meio do fundo do cesto;
 
-#### Materials Required
+### Templates de Bloco
 
-You should have the following
+Cada bloco será construído com um template de bloco e um cabeçalho de bloco.
 
-- 12 Plastic Baskets
-- 6 Mempool Stickers
-- 6 UTXO set Stickers
+Você precisará montar os templates de bloco.
 
+FIXME: imagem de um template de bloco vazio
 
-#### Steps
+#### Materiais Necessários
 
-For each basket:
+Você deve ter 60 dos seguintes
 
-1. Place 1 Sticker in the middle bottom of the basket
+- Suportes de Cartão de Plástico
+- Envelopes A1
 
+#### Passos
 
-### Block Templates
+Para cada bloco (60):
 
-Every block will be constructed with a block template and a block header.
+1. Remova o suporte de cartão de plástico do papel de apoio;
+2. Coloque o suporte de cartão de plástico na frente de um envelope, com a abertura apontando para cima, em direção ao topo do envelope;
 
-You'll need to put the block templates together.
+### Transação Gênese
 
-FIXME: picture of an empty block template
+A transação gênese vai dentro do Blocos Gênese. É a primeira transação de bitcoin. Também é uma transação de coinbase.
 
-#### Materials Required
+FIXME: imagem de uma transação de gênese.
 
-You should have 60 of the following
+#### Materiais Necessários
 
-- Plastic Card Holders
-- A1 Envelopes
+- 6 cartões de transação em branco
 
-#### Steps
+#### Passos
 
-For each block (60):
+Para cada nó (6), faça o seguinte.
 
-1. Remove the plastic card holder from the paper backing
-2. Place the plastic card holder onto the front of an envelope,
-   opening pointing up towards the top of the envelope
+1. Pegue um cartão de transação em branco;
+2. Escreva "eagle33" como o txid;
+3. Desenhe um grande X sobre a seção de entradas;
+4. Preencha as saídas com o seguinte;
 
+### Saída #0
+- **Valor:** 25;
+- **Chave Pública:** coloque um adesivo de cadeado verde;
 
-### Genesis Transaction
+### Saída #1
+- **Valor:** 8;
+- **Chave Pública:** coloque um adesivo de cadeado azul;
 
-The Genesis transaction goes inside of the Genesis Blocks. It's the
-first ever bitcoin transaction. It's also a coinbase transaction.
+### Saída #2
+- **Valor:** 8;
+- **Chave Pública:** coloque um adesivo de cadeado rosa;
 
-FIXME: picture of a genesis transaction.
+### Saída #3
+- **Valor:** 8;
+- **Chave Pública:** coloque um adesivo de cadeado amarelo;
 
-#### Materials Required
+### Bloco Gênese
 
-- 6 blank transaction cards
+Cada nó começa com uma blockchain com um bloco nela. Este é o primeiro bloco da blockchain. Também é conhecido como bloco gênese. Satoshi Nakamoto o minerou e então o colocou dentro do bitcoin-core. (Hardcoded).
 
-#### Steps
+FIXME: foto de um bloco gênese completo
 
-For each node (6), do the following.
+#### Materiais Necessários
 
-1. Take a blank transaction card
-2. Write "eagle33" as the txid
-3. Write a large X over the inputs section.
-4. Fill in the outputs with the following
+Precisaremos dos seguintes materiais para construir blocos gênese para cada um dos nós.
 
-### Output #0
-- **Amount:** 25
-- **Pubkey:** place a green lock sticker
+- 6 Transações da Gênese;
+- 6 Templates de Bloco;
+- 6 Cartões de Cabeçalho de Bloco;
 
-### Output #1
-- **Amount:** 8
-- **Pubkey:** place a blue lock sticker
+#### Passos
 
-### Output #2
-- **Amount:** 8
-- **Pubkey:** place a pink lock sticker
+Para cada nó (6), faça o seguinte:
 
-### Output #3
-- **Amount:** 8
-- **Pubkey:** place a yellow lock sticker
-
-
-### Genesis Blocks
-
-Each node starts with a blockchain with one block in it. This is
-the first block in the blockchain. It's also known as the genesis block.
-Satoshi Nakamoto mined it and then put it inside bitcoin-core. (Hardcoded it).
-
-FIXME: photo of a completed genesis block
-
-#### Materials Required
-
-We'll need the following materials to build genesis blocks for each of the nodes.
-
-- 6 Genesis Transactions
-- 6 Block Templates
-- 6 Block Header Cards
-
-
-#### Steps
-
-For each node (6), do the following:
-
-1. Place the Genesis Transaction inside the
-   Block Template envelope.
-2. On the Block Header Card, write the following:
-	- prev block hash: 000000
+1. Coloque a Transação da Gênese dentro do
+   envelope do Template de Bloco.
+2. No Cartão de Cabeçalho de Bloco, escreva o seguinte:
+	- previous block hash: 000000
 	- tx commitment:   33
 	- time:            12:34
-	- target:          8500
+	- targe:           8500
 	- nonce:           FIXME ???
-3. Place the filled in Block Header Card inside the
-   Plastic Card Holder on the front of the block template.
+3. Coloque o Cartão de Cabeçalho de Bloco preenchido dentro do Suporte de Cartão de Plástico na frente do template de bloco;
 
+### Primeira Transação da Rede
 
-### First Network Transaction
+Depois de introduzirmos os componentes do nó, distribuiremos uma 'primeira transação da rede'.
 
-After we've introduced the node components, we'll pass out a 'first network transaction'.
+Aqui está geralmente como ela é construída. Sinta-se à vontade para usar valores diferentes, mas certifique-se de que a transação ainda seja válida.
 
-Here's generally how it's constructed. Feel free to use different amounts, but make
-sure the transaction is still valid.
+FIXME: imagem de uma primeira transação.
 
-FIXME: picture of a first transaction.
+#### Materiais Necessários
 
-#### Materials Required
+- 6 cartões de transação em branco;
 
-- 6 blank transaction cards
+#### Passos
 
-#### Steps
+Para cada nó (6), faça o seguinte.
 
-For each node (6), do the following.
-
-1. Take a blank transaction card
-2. Write "cat72" as the txid
-3. Fill in the input with the following:
-    - transaction id: "eagle33"
-	- #: "0"
-	- signature: leave blank
-4. Fill in the outputs with the following
+1. Pegue um cartão de transação em branco:
+2. Escreva "cat72" como o txid;
+3. Preencha a entrada com o seguinte:
+    - id da transação: "eagle33";
+	- #: "0";
+	- assinatura: deixe em branco;
+4. Preencha as saídas com o seguinte;
 	
-### Output #0
-- **Amount:** 8
-- **Pubkey:** place a green lock sticker
-### Output #1
-- **Amount:** 8
-- **Pubkey:** place a purple lock sticker
-### Output #2
-- **Amount:** 8
-- **Pubkey:** place a red lock sticker
-
+### Saída #0
+- **Valor:** 8;
+- **Chave Pública:** coloque um adesivo de cadeado verde;
+### Saída #1
+- **Valor:** 8;
+- **Chave Pública:** coloque um adesivo de cadeado roxo;
+### Saída #2
+- **Valor:** 8;
+- **Chave Pública:** coloque um adesivo de cadeado vermelho;
 
 ### Blockchain
 
-A blockchain is a file folder full of blocks.
+Uma blockchain é uma pasta de arquivos cheia de blocos.
 
-#### Materials Required
+#### Materiais Necessários
 
-- 6 Genesis Blocks
-- 6 3 x 5" Index Card Case
+- 6 Blocos da Gênese;
+- 6 Caixas de Cartão de Índice de 7,62 x 12,7 cm;
 
-#### Steps
+#### Passos
 
-For each Index Card Case
+Para cada Caixa de Cartão de Índice
 
-1. Place a Genesis Block inside
+1. Coloque um Bloco Gênese dentro;
 
+### Cartões de Chave Secreta
 
-### Secret Key Cards
+Se você não recebeu os pré-impressos, pode fazer cartões de chave secreta;
 
-If you didn't get the pre-printed ones, you can make secret key cards.
+FIXME: fotos de cartões de chave secreta!
 
-FIXME: photos of secret key cards!
+#### Passos
 
-#### Steps
-
-1. Take 6 transaction cards
-2. Turn them over to the blank back side
-3. Put one key sticker on each card. You should end up with the following.
-	- 1 Blue secret key card
-	- 1 Green secret key card
-	- 1 Yellow secret key card
-	- 1 Pink secret key card
-	- 1 Purple secret key card
-	- 1 Red secret key card
+1. Pegue 6 cartões de transação:
+2. Vire-os para o lado em branco;
+3. Coloque um adesivo de chave em cada cartão. Você deve acabar com o seguinte:
+	- 1 Cartão de chave secreta azul;
+	- 1 Cartão de chave secreta verde;
+	- 1 Cartão de chave secreta amarela;
+	- 1 Cartão de chave secreta rosa;
+	- 1 Cartão de chave secreta roxa;
+	- 1 Cartão de chave secreta vermelha;
