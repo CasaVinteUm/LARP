@@ -1,336 +1,248 @@
-# Genesis: The LARP Begins
-
-The first phase of the LARP is about unpacking what's in
-the bitcoin-core software that your node has downloaded,
-inspecting and verifying the genesis block and transaction.
-
-This introduces us to blocks, transactions, coinbases,
-validation, and the 'genesis' block.
-
-
-Estimated time: 15m
-
-
-## Table of Contents
-
-  * [Materials Used](#materials-used)
-  * [Unpacking bitcoin-core](#unpacking-bitcoin-core)
-  * [The Genesis Block and Transaction](#the-genesis-block-and-transaction)
-  * [Introduction to the UTXO set](#introduction-to-the-utxo-set)
-  * [Identifying Our Outputs](#identifying-our-outputs)
-  * [Verifying the Genesis Block Header](#verifying-the-genesis-block-header)
-    * [The 'tx commitment'](#the-tx-commitment)
-    * [Calculating the block hash](#calculating-the-block-hash)
-  * [In Sum](#in-sum)
-
-
-## Materials Used
-
-In this phase of the LARP, we'll use the following items:
-
-	- almost everything, but especially
-	- the blockchain
-	- the genesis block
-	- the genesis transaction
-	- the UTXO set basket
-	- secret key card
-	- the BASIC miner
-
-
-Things we will *not* use in this phase of the LARP (but may go thru in our
-node basket as part of [Unpacking bitcoin-core](#unpacking-bitcoin-core)).
+# Gênese: O LARP Começa
 
-	- the first network transaction
-	- the string
-	- scissors
-	- network cards
-	- the dry erase marker
-	- network message headers (binder rings)
-	- key + lock stickers
-	- the self-inking approved stamp
-	- pens
-	- blank transactions
-	- blank block headers
-	- blank block templates
-	- blank compact block cards
-	- node scorecard
-	- tx + block verification checklists
+A primeira fase do LARP é sobre desempacotar o que está no software bitcoin-core que seu nó baixou, inspecionando e verificando o bloco e a transação da gênese.
 
+Isso nos introduz a blocos, transações, coinbases, validação e o 'bloco gênese'.
 
-## Unpacking bitcoin-core
+Tempo estimado: 15 minutos
 
-The first thing we do is take a tour through what's in
-everyone's nodes. Typically we do this by unpacking the baskets
-until we arrive at the final item at the bottom: the baskets
-themselves.
+## Índice
 
-Here's a rough list and explanation of each item. You should
-read this out as you go through the items, holding them up one
-by one as you take things out and put them on the table.
+  * [Materiais Usados](#materiais-usados)
+  * [Desempacotando o bitcoin-core](#desempacotando-o-bitcoin-core)
+  * [O Bloco e a Transação Gênese](#o-bloco-e-a-transação-gênese)
+  * [Introdução ao conjunto UTXO](#introdução-ao-conjunto-utxo)
+  * [Identificando Nossas Saídas](#identificando-nossas-saídas)
+  * [Verificando o Cabeçalho do Bloco Gênese](#verificando-o-cabeçalho-do-bloco-gênese)
+    * [O 'tx commitment'](#o-tx-commitment)
+    * [Calculando o hash do bloco](#calculando-o-hash-do-bloco)
+  * [Em Resumo](#em-resumo)
 
-- *transaction cards*: These are the blank transaction cards
-  we'll use to make new bitcoin transactions with.
-- *loose leaf binder rings*: These are our network message
-  headers. They let us send messages between nodes.
-- *envelopes/block templates*: These are block templates.
-  We'll use them to build new blocks.
-- *blank Block Header cards*: these are blank block headers.
-- *key + lock stickers*: These keys and locks  are for
-  securing and spending bitcoin in transactions.
-- *self-inking approved stamp*: We'll use this to mark
-  transactions as validated.
-- *pens*: No explanation, just take them out
-- *dry erase marker*: This is for writing network messages.
-- *miner*: This is our "BASIC" or 'Basic ASIC'. We'll use it
-  to validate blocks and to mine new ones.
-- *network cards*: These our are network cards, they let
-  us send messages to other nodes on the network.
-- *compact block txid cards*: Used for sending info about blocks
-  to our peers over the network.
-- *node scorecard*: For tallying node scores at the end.
-- *tx and block verification checklists*: Useful for verifying
-  data we receive over the network.
-- *mempool + utxo baskets*: These are our baskets for
-  transactions we get over the network.
-- *secret key card*: This is your node's secret key.
-  Don't tell anyone else what it is. It's how you'll
-  identify coins that you can spend in the blockchain.
-- *blockchain/index card holder*: This is our blockchain.
-  Let's see what's inside.
+## Materiais Usados
 
-Note: I recommend ending on the blockchain / index card holder as
-the final item that you hold up to explain.
+Nesta fase do LARP, usaremos os seguintes itens:
 
-## The Genesis Block and Transaction
+  - quase tudo, mas especialmente:
+  - a blockchain;
+  - o bloco gênese;
+  - a transação gênese;
+  - o cesto do conjunto UTXO;
+  - cartão de chave secreta;
+  - o minerador BASIC;
 
-Instructor script for the genesis block exploration.
+Coisas que *não* usaremos nesta fase do LARP (mas podem passar pelo nosso cesto de nós como parte de [Desempacotando o bitcoin-core](#desempacotando-o-bitcoin-core)).
 
-	Inside the blockchain you'll find a single
-	block. We call this the 'genesis block'. It's included
-	in every download of bitcoin-core. It comes with your
-	bitcoin node.
+  - a primeira transação da rede;
+  - a corda;
+  - tesouras;
+  - cartões de rede;
+  - marcador de quadro branco;
+  - cabeçalhos de mensagens de rede (argolas de fichário);
+  - adesivos de chave + cadeado;
+  - carimbo aprovado;
+  - canetas;
+  - transações em branco;
+  - cabeçalhos de bloco em branco;
+  - templates de bloco em branco;
+  - cartões de bloco compacto em branco;
+  - cartão de pontuação do nó;
+  - listas de verificação de tx + bloco;
 
-	A block has a blockheader on the front and transactions
-	inside of it. How many transactions are inside of this
-	block?
+## Desempacotando o bitcoin-core
 
-	A: 1
+A primeira coisa que fazemos é dar uma volta pelo que está nos nós de todos. Normalmente, fazemos isso desempacotando os cestos até chegarmos ao item final no fundo: os próprios cestos.
 
-	What's the transaction id of this transaction?
+Aqui está uma lista aproximada e explicação de cada item. Você deve ler isso enquanto passa pelos itens, segurando-os um por um enquanto tira as coisas e as coloca na mesa.
 
-	A: eagle33
+- *cartões de transação*: Estes são os cartões de transação em branco que usaremos para fazer novas transações de bitcoin.
+- *argolas de fichário*: Estes são nossos cabeçalhos de mensagens de rede. Eles nos permitem enviar mensagens entre nós.
+- *envelopes/templates de bloco*: Estes são templates de bloco. Vamos usá-los para construir novos blocos.
+- *cartões de Cabeçalho de Bloco em branco*: estes são cabeçalhos de bloco em branco.
+- *adesivos de chave + cadeado*: Estas chaves e cadeados são para garantir e gastar bitcoin em transações.
+- *carimbo aprovado*: Vamos usar isso para marcar transações como validadas.
+- *canetas*: Sem explicação, apenas tire-as
+- *marcador de quadro branco*: Isto é para escrever mensagens de rede.
+- *minerador*: Este é nosso "BASIC" ou 'ASIC Básico'. Vamos usá-lo para validar blocos e minerar novos.
+- *cartões de rede*: Estes são nossos cartões de rede, eles nos permitem enviar mensagens para outros nós na rede.
+- *cartões de txid de bloco compacto*: Usados para enviar informações sobre blocos para nossos pares na rede.
+- *cartão de pontuação do nó*: Para contar os pontos do nó no final.
+- *listas de verificação de tx e bloco*: Úteis para verificar os dados que recebemos pela rede.
+- *cestos de mempool + utxo*: Estes são nossos cestos para transações que recebemos pela rede.
+- *cartão de chave secreta*: Esta é a chave secreta do seu nó. Não diga a ninguém qual é. É assim que você identificará moedas que pode gastar na blockchain.
+- *blockchain/suporte de cartão de índice*: Esta é a nossa blockchain. Vamos ver o que está dentro.
 
-	How many inputs does it have?
+Nota: Recomendo terminar na blockchain / suporte de cartão de índice como
+o item final que você segura para explicar.
 
-	A: 0.
+## O Bloco e a Transação Gênese
 
-	Does anyone know why this transaction has zero inputs?
+Roteiro do instrutor para a exploração do bloco gênese.
 
-	A: It's a coinbase transaction. It's where new
-	bitcoin enter the supply. For our game, every coinbase
-	is allowed to create 50 new bitcoins.
+	Dentro da blockchain você encontrará um único bloco. Chamamos isso de 'bloco gênese'.
+    Está incluído em cada download do bitcoin-core. Vem com o seu nó de bitcoin.
 
-	Let's look at the outputs on this transaction, the
-	genesis transaction. How many outputs are there?
+	Um bloco tem um cabeçalho de bloco na frente e transações dentro dele.
+    Quantas transações há dentro deste bloco?
 
-	A: 4 outputs
+	R: 1
 
-	Does the value of the outputs add up to 50?
+	Qual é o ID da transação desta transação?
 
-	A: No, we're missing one.
+	R: eagle33
 
-	Where did that extra bitcoin go?
+	Quantas entradas ela tem?
 
-	A: It's just not added to the total bitcoin supply.
-	The miner who made the coinbase transaction can add
-	up to 50 bitcoins in the coinbase, but they dont' have
-	to. There are some blocks in bitcoin where this happened.
+	R: 0.
 
+	Alguém sabe por que esta transação tem zero entradas?
 
-## Introduction to the UTXO set
+	R: É uma transação de coinbase. É onde novos bitcoins entram no suprimento.
+    Para nosso jogo, cada coinbase pode criar até 50 novos bitcoins.
 
-Next, we introduce the concept of keeping transactions that
-are inside blocks (but unspent!) in the UTXO set.
+	Vamos olhar para as saídas desta transação, a transação gênese. Quantas saídas há?
 
-Instructor script:
+	R: 4 saídas
 
-	This transaction is in a block. It's now considered
-	'mined' or 'confirmed'. We put mined or confirmed
-	transactions into one of the two baskets that we have.
+	O valor das saídas soma 50?
 
-	Which basket do you think a confirmed transaction
-	goes in?
+	R: Não, estamos perdendo uma.
 
-	A: the UTXO set
+	Para onde foi aquele bitcoin extra?
 
-	Right, confirmed transactions go into the UTXO set
-	until all their outputs have been spent, at which
-	point we can put them back into their block envelopes.
+	R: Ele simplesmente não foi adicionado ao suprimento total de bitcoin.
+    O minerador que fez a transação de coinbase pode adicionar até 50 bitcoins na coinbase, mas não precisa.
+    Existem alguns blocos no bitcoin onde isso aconteceu.
 
-	ACTION: Place the genesis transaction into the UTXO set
-	basket. There should now be one transaction in the UTXO set.
+## Introdução ao conjunto UTXO
 
-	There is one transaction in our UTXO set. How many outputs
-	are on that transaction?
+Em seguida, introduzimos o conceito de manter transações que estão dentro de blocos (mas não gastas!) no conjunto UTXO.
 
-	A: 4 outputs
+Roteiro do instrutor:
 
+	Esta transação está em um bloco. Agora é considerada 'minerada' ou 'confirmada'.
+    Colocamos transações mineradas ou confirmadas em um dos dois cestos que temos.
 
-_Protocol Note_: The first ever coinbase transaction in the
-genesis block technically *isn't* included in the UTXO set.
-Because it's not in the UTXO set, it's considered unspendable.
-This was probably a mistake on Satoshi's part, but we're keeping
-things that way. The LARP game doesn't follow the protocol
-exactly: we add our genesis transaction to the UTXO set, which
-makes all of the outputs on it eligible to be spent in other
-transactions.
+	Em qual cesto você acha que uma transação confirmada vai?
 
+	R: o conjunto UTXO
 
-## Identifying Our Outputs
+	Certo, transações confirmadas vão para o conjunto UTXO até que todas as suas saídas sejam gastas,
+    momento em que podemos colocá-las de volta em seus envelopes de bloco.
 
-Instructor Script:
+	AÇÃO: Coloque a transação gênese no cesto do conjunto UTXO. Deve haver agora uma transação no conjunto UTXO.
 
-	Every bitcoin node here should have received a wallet
-	with a secret key in it. This is the card with a colored
-	key on it.
+	Há uma transação em nosso conjunto UTXO. Quantas saídas há nessa transação?
 
-	ACTION: Give nodes a few seconds to find their secret key
-	color.
+	R: 4 saídas
 
-	We should be able to identify bitcoins which belong to our
-	wallet by finding transaction outputs in the UTXO set which
-	match your secret key. If you currently have bitcoin locked
-	to your key, please raise your hand.
+_Nota de Protocolo_: A primeira transação de coinbase no bloco gênese tecnicamente *não* está incluída no conjunto UTXO. Porque não está no conjunto UTXO, é considerada não gastável. Provavelmente foi um erro da parte de Satoshi, mas estamos mantendo as coisas assim. O jogo LARP não segue o protocolo exatamente: adicionamos nossa transação gênese ao conjunto UTXO, o que torna todas as suas saídas elegíveis para serem gastas em outras transações.
 
-	NOTE: Only 4 of the 6 nodes will have bitcoin locked up in
-	the UTXO set at this point.
+## Identificando Nossas Saídas
 
+Roteiro do instrutor:
 
-This is pretty short, but an important way for people to start associating
-their bitcoin balance as numbers in outputs in the UTXO set.
+	Cada nó de bitcoin aqui deve ter recebido uma carteira com uma chave secreta nela. Este é o cartão com uma chave colorida.
 
+	AÇÃO: Dê aos nós alguns segundos para encontrar a cor da chave secreta.
 
-## Verifying the Genesis Block Header
+	Devemos ser capazes de identificar bitcoins que pertencem à nossa carteira encontrando saídas de transações no conjunto UTXO que combinem com sua chave secreta.
+    Se você atualmente tem bitcoins bloqueados na sua chave, levante a mão.
 
-We're changing topics here a bit, but this is the last task we have
-for the 'genesis' portion of the LARP.
+	NOTA: Apenas 4 dos 6 nós terão bitcoins bloqueados no conjunto UTXO neste ponto.
 
-Instructor Script:
+Isso é bastante curto, mas uma maneira importante para as pessoas começarem a associar seu saldo de bitcoin como números em saídas no conjunto UTXO.
 
-	Anytime we get a new block, we should verify that
-	the blockheader is valid. We probably should have
-	done this before we put any transactions inside it
-	into the UTXO set, but that's ok.
+## Verificando o Cabeçalho do Bloco Gênese
 
-	Going forward we'll verify the block header before looking
-	at the transactions on it. For the genesis block it's ok
-	to do things a bit out of order.
+Estamos mudando de tópico aqui um pouco, mas esta é a última tarefa que temos para a parte 'gênese' do LARP.
 
-	To verify a block header, we'll need to calculate the
-	blockhash. We'll need to use our BASICs for this.
+Roteiro do instrutor:
 
-	ACTION: Hold up a BASIC. Give nodes a moment to find theirs.
+	Sempre que recebermos um novo bloco, devemos verificar se o cabeçalho do bloco é válido.
+    Provavelmente deveríamos ter feito isso antes de colocar quaisquer transações dentro dele no conjunto UTXO, mas tudo bem.
 
-### The 'tx commitment'
+	De agora em diante, vamos verificar o cabeçalho do bloco antes de olhar para as transações nele.
+    Para o bloco gênese, está tudo bem fazer as coisas um pouco fora de ordem.
 
-Instructor script:
+	Para verificar um cabeçalho de bloco, precisaremos calcular o hash do bloco. Precisaremos usar nossos BASICs para isso.
 
-	Before we can use the BASICs however, we need to verify
-	one of the pieces of information on the blockheader
-	That's the 'tx commitment' field or transaction commitment.
+	AÇÃO: Segure um BASIC. Dê aos nós um momento para encontrar os seus.
 
-	The purpose of this field is to make sure that the transactions
-	inside the block actually belong to the block that the miner
-	intended to build.
+### O 'tx commitment'
 
-	For this LARP, our tx commitment is the sum of all of the numbers
-	in the transaction id's from the transactions inside the block.
+Roteiro do instrutor:
 
-	What's the number from the txid that was in this block?
+	Antes de podermos usar os BASICs, no entanto, precisamos verificar uma das informações no cabeçalho do bloco.
+    Esse é o campo 'compromisso de tx' ou compromisso de transação.
 
-	A: 33 (the txid was eagle33)
+	O propósito deste campo é garantir que as transações dentro do bloco realmente pertencem ao bloco que o minerador intencionou construir.
 
-	Does the tx commitment equal this?
+	Para este LARP, nosso compromisso de tx é a soma de todos os números nos IDs das transações dentro do bloco.
 
-	A: Yes, the tx commitment on the genesis block is 33.
+	Qual é o número do ID da transação que estava neste bloco?
 
-	Now that we're confident the transactions in the block match the
-	blockheader, we're ready to calculate the block hash.
+	R: 33 (o ID da transação era eagle33)
 
+	O tx commitment é igual a isso?
 
-_Protocol Note_: The actual 'transaction commitment' is a Merkle root
-of all the block's transaction's ids. We don't have a quick and easy
-way to build a Merkle root. Instead we just use some basic math.
+	R: Sim, o compromisso de tx no bloco gênese é 33.
 
+	Agora que estamos confiantes de que as transações no bloco correspondem ao cabeçalho do bloco, estamos prontos para calcular o hash do bloco.
 
-### Calculating the block hash
+_Nota de Protocolo_: O 'compromisso de transação' real é uma raiz de Merkle de todos os IDs de transação do bloco. Não temos uma maneira rápida e fácil de construir uma raiz de Merkle. Em vez disso, apenas usamos algumas contas básicas.
 
+### Calculando o hash do bloco
 
-Instructor Script
+Roteiro do instrutor:
 
-	Turn on your BASIC by sliding the switch on the side to the on
-	position.
+	Ligue seu BASIC deslizando o interruptor na lateral para a posição de ligado.
 
-	Now we just need to type in the information from the blockheader
-	and it will give us a blockhash.
+	Agora, só precisamos digitar as informações do cabeçalho do bloco e ele nos dará um hash do bloco.
 
-	ACTION: Enter in the first field from the blockheader, the
-	`prev block hash` into the BASIC. Press the '#' sign to
-	advance to the next field to input.
+	AÇÃO: Insira o primeiro campo do cabeçalho do bloco, o `hash do bloco anterior` no BASIC.
+    Pressione o '#' para avançar para o próximo campo para inserir.
 
-	To enter a field, press the '#' (pound sign). If you make
-	a mistake, you can delete digits by pressing the '*' key.
+	Para inserir um campo, pressione a tecla '#'. Se você cometer um erro, pode excluir dígitos pressionando a tecla '*'.
 
-	Let's finish entering all of the information from the
-	block header into the blockhash.
+	Vamos terminar de inserir todas as informações do cabeçalho do bloco no hash do bloco.
 
-	ACTION: the blockhash should be shown on the screen at the end
-	of entering all the data in. Write the shown blockhash onto
-	the blockheader card, in the space to the  left of the
-	"blockheader" title.
+	AÇÃO: o hash do bloco deve ser mostrado na tela ao final da inserção de todos os dados.
+    Escreva o hash do bloco mostrado no cabeçalho do bloco, no espaço à esquerda do título "cabeçalho do bloco".
 
-	ACTION: Give nodes some time to complete this, and write their
-	hash down on the blockheader. Hold up an example card so everyone
-	can see. Walk around and make sure everyone is getting the correct
-	hash.
+	AÇÃO: Dê aos nós algum tempo para completar isso e escrever seu hash no cabeçalho do bloco.
+    Segure um cartão de exemplo para que todos possam ver. Ande por aí e certifique-se de que todos estão obtendo o hash correto.
 
-	What blockhash did everyone get for the genesis block?
+	Qual hash de bloco todos conseguiram para o bloco gênese?
 
-	A: FIXME: blockhash of genesis block
+	R: FIXME: hash do bloco gênese
 
-	Is this a valid blockhash?
+	Este é um hash de bloco válido?
 
-	A: Yes.
+	R: Sim.
 
-	How do we know it's a valid blockhash?
+	Como sabemos que é um hash de bloco válido?
 
-	A: It's a number less than the `target` field on the blockheader.
+	R: É um número menor que o campo `alvo` no cabeçalho do bloco.
 
-	Right. The target gets updated every time we have a 'difficulty
-	adjustment'. For now it'll stay at 8500.
+	Certo. O alvo é atualizado sempre que temos um 'ajuste de dificuldade'. Por enquanto, ficará em 8500.
 
-	Ok. Since the blockhash is less than the target, we have a valid
-	block.
+	Ok. Como o hash do bloco é menor que o alvo, temos um bloco válido.
 
-	Let's write the hash of the block onto the genesis transaction, so
-	we know which block this transaction came from. That'll make it easier
-	to put the transaction back into the block envelope after all its
-	outputs are spent.
+	Vamos escrever o hash do bloco na transação gênese, para sabermos de qual bloco esta transação veio.
+    Isso tornará mais fácil colocar a transação de volta no envelope do bloco depois que todas as suas saídas forem gastas.
 
-	ACTION: Write the blockhash, FIXME, onto the back of the transaction
-	in the UTXO set. Hold it up so other nodes can see what you've done.
+	AÇÃO: Escreva o hash do bloco, FIXME, no verso da transação no conjunto UTXO. Segure-o para que outros nós possam ver o que você fez.
 
+## Em Resumo
 
-## In Sum
+Nesta parte do LARP, nós:
 
-In this portion of the LARP we've:
+- Desempacotamos um nó de bitcoin core
+- Encontramos a primeira transação de coinbase
+- Identificamos as partes de uma transação
+- Introduzimos o conjunto UTXO
+- Descobrimos a chave secreta de cada nó
+- Encontramos UTXOs que pertencem à nossa chave no conjunto UTXO
+- Verificamos um cabeçalho de bloco usando o BASIC
 
-- Unpacked a bitcoin core node
-- Found the first coinbase transaction
-- Identified the parts of a transaction
-- Introduced the UTXO set
-- Discovered each node's secret key
-- Found UTXOs that belong to our key in the UTXO set
-- Verified a block header using the BASIC
-
-We're now ready to move on to validating and writing transactions.
+Agora estamos prontos para passar para a validação e escrita de transações.
