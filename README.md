@@ -1,81 +1,66 @@
 # Base58⛓️🔓's World Famous Bitcoin LARP\*
 
-\*Live Action Role Play
+\* Live Action Role-Play
 
-## Table of Contents
+## Índice
 
-  * [About the Game](#about-the-game)
-  * [Where to Start](#where-to-start)
-  * [Instructor Tutorial Videos](#instructor-tutorial-videos)
-  * [Geyser Campaign to Build 50 LARP Gamesets](#geyser-campaign)
-  * [Past LARPs](#past-larps)
+* [Sobre o Jogo](#sobre-o-jogo)
+* [Por Onde Começar](#por-onde-começar)
+* [Vídeos Tutoriais do Instrutor](#vídeos-tutoriais-do-instrutor)
+* [Campanha Geyser para Construir 50 Conjuntos de Jogo LARP](#campanha-geyser)
+* [LARPs Passados](#larps-passados)
 
-## About the Game
+## Sobre o Jogo
 
-The Bitcoin LARP is designed for 12 to 36 players, divided into 6 groups.
-It typically runs for 90m to 2hrs, depending on the group size and
-experience level.
+O Bitcoin LARP é projetado para 12 a 36 jogadores, divididos em 6 grupos. Normalmente, dura de 90 minutos a 2 horas, dependendo do tamanho do grupo e do nível de experiência.
 
-The game has been played at bitcoin conferences and meetups world-wide,
-and is a fantastic yet challenging way to really understand what is
-happening on the bitcoin network.
+O jogo já foi jogado em conferências e encontros de bitcoin em todo o mundo, e é uma maneira fantástica, embora desafiadora, de realmente entender o que está acontecendo na rede bitcoin.
 
-There are several phases of the game, each one builds on the previous.
+Há várias fases do jogo, cada uma construindo sobre a anterior.
 
-By the end, the group should have walked through:
+No final, o grupo deve ter passado por:
 
-	- inspecting the contents of a bitcoin-core node
-	- validating a bitcoin transaction
-	- writing a bitcoin transaction
-	- building a peer to peer network
-	- exchanging messages over a peer to peer network
-	- building block templates
-	- mining for new blocks
-	- validating bitcoin blocks
+- Inspecionar o conteúdo de um nó bitcoin-core;
+- Validar uma transação bitcoin;
+- Escrever uma transação bitcoin;
+- Construir uma rede peer-to-peer;
+- Trocar mensagens em uma rede peer-to-peer
+- Construir templates de blocos;
+- Minerar novos blocos
+- Validar blocos bitcoin
 
+O Bitcoin LARP foi projetado por @niftynei, instrutora principal da @base58btc e engenheira de protocolo Lightning de longa data.
 
-The bitcoin LARP was designed by @niftynei, @base58btc's lead instructor and longtime
-Lightning protocol engineer.
+## Por Onde Começar
 
+Então você quer executar um Bitcoin LARP? Você veio ao lugar certo.
 
-## Where to Start
+Primeiro, você precisará dos materiais para o conjunto de jogo. Colocamos isso na [BOM](BOM.md), que é a abreviação de Bill of Materials (Lista de Materiais).
 
-So you want to run a bitcoin LARP? You've come to the right place.
+Depois de coletar e montar tudo o que você precisa, você estará pronto para jogar seu primeiro jogo.
 
-First you'll need the materials for the gameset. We've put this
-over in the [BOM](BOM.md), which is short for Bill of Materials.
+Siga as instruções na pasta [`docs`](docs/) para configurar e jogar.
 
-Once you've collected and assembled everything you need, you'll be
-ready to play your first game.
+Você também pode seguir os vídeos tutoriais do instrutor abaixo.
 
-Follow the instructions in the [`docs`](docs/) folder to setup and play.
+## Vídeos Tutoriais do Instrutor
 
-You can also follow the instructor tutorial videos below.
+FIXME: fazer vídeos tutoriais do instrutor
 
+## Campanha Geyser
 
-## Instructor Tutorial Videos
+Estamos realizando uma campanha Geyser para construir e distribuir 50 conjuntos de jogos LARP para comunidades e salas de aula de Bitcoin ao redor do mundo.
 
-FIXME: make instructor tutorial videos
+Ajude-nos a alcançar nossa meta de financiamento e espalhar o Bitcoin LARP em salas de aula e comunidades ao redor do mundo!
 
+Doe para nossa campanha aqui: [Geyser Fund](https://geyser.fund/project/base58sworldfamousbitcoinlarp)
 
-## Geyser Campaign
+Se você é um organizador comunitário ou educador, pode se inscrever para receber um desses kits aqui: [Typeform](https://ykdl62lcpgz.typeform.com/larp50).
 
-We're running a Geyser campaign to build and distribute 50 LARP gamesets
-for Bitcoin communities and classrooms around the world.
+## LARPs Passados
 
-Help us reach our funding goal and spead the Bitcoin LARP into classrooms
-and communities around the world!
+Aqui estão alguns vídeos e imagens de LARPs passados!
 
-Donate to our campaign here: [Geyser Fund](https://geyser.fund/project/base58sworldfamousbitcoinlarp)
-
-If you're a community organizer or educator, you can apply to receive one
-of these kits here: [Typeform](https://ykdl62lcpgz.typeform.com/larp50).
-
-
-## Past LARPs
-
-Here's some videos and images from past LARPs!
-
-* At [TABConf, 2021](https://www.youtube.com/watch?v=vVTRO6Kmnug)
-* A [Promo Video](https://bitcointv.com/w/osFPTGyrTzMDXSwHCchaae?start=0s) Recorded in Houston, 2022
-* [GIF of a LARP](https://twitter.com/PraneethGunas/status/1714150490110390437) run in Italy, Oct 2023
+* No [TABConf, 2021](https://www.youtube.com/watch?v=vVTRO6Kmnug)
+* Um [Vídeo Promocional](https://bitcointv.com/w/osFPTGyrTzMDXSwHCchaae?start=0s) Gravado em Houston, 2022
+* [GIF de um LARP](https://twitter.com/PraneethGunas/status/1714150490110390437) realizado na Itália, out 2023
