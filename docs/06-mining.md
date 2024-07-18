@@ -1,393 +1,380 @@
-# Mining - building the chain
+# Mineração - construindo a cadeia
 
-This is the final phase of the LARP, and can last
-as long as participants remain interested. It's also
-the most chaotic and difficult to manage, as the power
-of decentralization really starts showing up.
+Esta é a fase final do LARP e pode durar enquanto os participantes estiverem interessados. Também é a mais caótica e difícil de gerenciar, pois o poder da descentralização realmente começa a aparecer.
 
-We'll be learning how to mine for blocks, send blocks
-around the network, and validate them when you receive
-them.
+Aprenderemos como minerar blocos, enviar blocos pela rede e validá-los quando os recebermos.
 
-Estimated Time: 30 to 40m
+Tempo Estimado: 30 a 40 minutos
 
+## Índice
 
-## Table of Contents
+  * [Materiais Usados](#materiais-usados)
+  * [Objetivos Desta Fase](#objetivos-desta-fase)
+  * [Mineração de Nonces](#mineração-de-nonces)
+  * [Transmitindo um Bloco Válido](#transmitindo-um-bloco-válido)
+  * [Solicitando um Bloco de um Par](#solicitando-um-bloco-de-um-par)
+  * [Validando um Bloco](#validando-um-bloco)
+    * [Validando Transações de Bloco](#validando-transações-de-bloco)
+    * [Marcando Saídas como Gastas](#marcando-saídas-como-gastas)
+  * [Construindo uma Cadeia](#construindo-uma-cadeia)
+  * [Em Resumo](#em-resumo)
 
-	* [Materials Used](#materials-used)
-	* [Goals for This Phase](#goals-for-this-phase)
-	* [Mining for Nonces](#mining-for-nonces)
-	* [Broadcasting a Valid Block](#broadcasting-a-valid-block)
-	* [Requesting a Block From a Peer](#requesting-a-block-from-a-peer)
-	* [Validating a Block](#validating-a-block)
-      * [Validating Block Transactions](#validating-block-transactions)
-	  * [Marking Outputs as Spent](#marking-outputs-as-spent)
-    * [Building a Chain](#building-a-chain)
-	* [In Sum](#in-sum)
+## Materiais Usados
 
-## Materials Used
+Nesta fase do LARP, usaremos os seguintes itens:
 
-In this phase of the LARP, we'll use the following items:
+  - os BASICs
+  - templates de blocos
+  - canetas esferográficas
+  - cartões compactos de txid de bloco
+  - todos os cartões de rede
+  - marcador de apagar a seco
+  - lista de verificação de validação de bloco
+  - suprimentos para copiar transações
+    - canetas esferográficas
+    - cartões de transação em branco
+    - adesivos de cadeado
+    - adesivos de chave
 
-	- the BASICs
-	- block templates
-	- ballpoint pens
-	- compact block txid cards
-	- all the network cards
-	- dry erase marker
-	- block validation checklist
-	- supplies to copy transactions
-		- ballpoint pens
-		- blank tx cards
-		- lock stickers
-		- key stickers
+## Objetivos Desta Fase
 
+Nesta fase, estabelecemos dois objetivos. O primeiro é quem encontra mais blocos, o que é principalmente uma questão de sorte.
 
-## Goals For This Phase
+O segundo é quem tem seus blocos na maioria das blockchains, o que depende de quão bem conectado um nó está e quão ativo todos os outros estão em enviar novos blocos assim que são encontrados.
 
-In this phase, we make two goals. The first is who
-finds the most blocks, which is mostly a matter of luck.
+Roteiro do Instrutor:
 
-The second is who has their blocks in the most blockchains,
-which depends on how well connected a node is and how
-active everyone else is about sending out new blocks
-as they're found.
+  ```
+  Estamos prontos para começar a minerar, mas antes de começar, quero
+  dar a todos alguns objetivos. O primeiro é que você quer
+  ser o nó a encontrar o bloco, mas esse bloco não vale
+  muito se a rede não concordar sobre como a
+  blockchain deve ser.
 
-Instructor Script:
+  Depois de encontrar um hash de bloco vencedor, você deve rapidamente
+  começar a enviá-lo pela rede.
 
-	We're ready to start mining, but before we do I want to
-	give everyone a few goals. The first is that you want
-	to be the node to find the block, but that block isn't
-	worth very much if the network doesn't agree on what the
-	blockchain looks like.
+  O nó que tem mais blocos nas blockchains de outros pares
+  será o vencedor desta fase do LARP.
+  ```
 
-	Once you find a winning block hash, you'll want to quickly
-	start sending it out over the network.
+## Mineração de Nonces
 
-	The node that has the most blocks in other peer's blockchains
-	will be the winner for this phase of the LARP.
+Um nonce é o dado que você muda em um cabeçalho de bloco que altera o resultado do hash que você obtém. Os BASICs procurarão automaticamente um nonce vencedor para você.
 
+Roteiro do Instrutor:
 
-## Mining for Nonces
+  ```
+  Estamos prontos para usar nossos BASICs para procurar um hash de bloco
+  vencedor. Para fazer isso, precisamos encontrar um nonce que,
+  juntamente com as outras informações no cabeçalho do bloco, nos dê
+  um hash de bloco que esteja abaixo do alvo.
 
-A nonce is the data you change in a blockheader that changes the
-hash result you get. The BASICs will auto-hunt for a winning nonce
-for you.
+  Qual é o número que um hash de bloco vencedor deve estar abaixo
+  para este bloco?
 
-Instructor Script:
+  R: 8500 (dica: está escrito no cabeçalho do bloco, como o alvo)
 
-	We're ready to use our BASICs to look for a winning block
-	hash. To do this, we need to find a nonce that, along
-	with the other information on the block header gives us
-	a block hash that is underneath the target.
+  Vamos digitar as informações do cabeçalho do bloco no BASIC e deixar
+  ele encontrar um nonce vencedor para nós. Isso pode levar alguns minutos.
 
-	What is the number that a winning blockhash must be under
-	for this block?
+  AÇÃO: Percorra a digitação dos números para um dos
+  nós mais próximos. Quando chegar à tela do nonce, diga o seguinte:
 
-	A: 8500 (hint: it's written on the blockheader already, as the target)
+  Para o nonce, como não o conhecemos, deixe-o em branco e
+  avance para a próxima tela.
 
-	Let's type our blockheader information into the BASIC and let
-	it find a winning nonce for us. This might take a few minutes.
+  AÇÃO: Faça com que os nós digitem os dados do cabeçalho do bloco no
+  seu template de bloco no BASIC. A tecla '#' avançará
+  para a próxima tela. A tecla '*' excluirá caracteres.
 
-	ACTION: Walk through typing in the numbers for one of the
-	nearest nodes. When you get to the nonce screen, say the following:
+  Quando seu BASIC encontrar um nonce vencedor, ele parará de procurar e
+  mostrará na tela. Anote isso no seu template de bloco
+  antes de avançar para a próxima tela no BASIC, que deve mostrar
+  o hash do bloco. Anote isso também no cabeçalho do bloco, acima
+  da palavra "blockheader".
 
-	For the nonce, since we don't know it, just leave it blank and
-	advance to the next screen.
+  Como você saberá que um hash de bloco é válido?
 
-	ACTION: Have nodes type in the data from the blockheader on
-	their block template into their BASIC. The '#' key will advance
-	to the next screen. The '*' key will delete characters.
+  R: Será um número menor que o alvo do bloco.
 
-	When your BASIC finds a winning nonce it will stop looking and
-	show it to you on the screen. Write this down on your block template
-	before advancing to the next screen on the BASIC, which should show
-	the block hash. Write this down as well onto the blockheader, above
-	the word "blockheader".
+  Quando seu bloco encontrar um nonce válido, por favor, levante a mão
+  e todos passaremos por como transmitir um bloco.
 
-	How will you know that a blockhash is a valid one?
+  AÇÃO: Espere até que um nó levante a mão. Ande por aí e
+  ajude os nós a fazerem seus BASICs funcionarem.
+  ```
 
-	A: It will be a number less than the block target.
+## Transmitindo um Bloco Válido
 
-	When your block finds a valid nonce, please raise your hand
-	and we'll all walk through how to broadcast a block.
+Dependendo dos deuses dos nonces, dentro de alguns minutos ou segundos, você deve ter um hash de bloco vencedor encontrado.
 
-	ACTION: Wait until a node raises their hand. Walk around and
-	help nodes get their BASICs running.
+Para esta seção, deixaremos o primeiro bloco vencedor se propagar por toda a rede antes de retomarmos a busca pelo próximo bloco.
 
+Roteiro do Instrutor:
 
-## Broadcasting a Valid Block
+  ```
+  Ok, encontramos nosso primeiro bloco vencedor. Vamos pausar por um momento
+  e passar por como transmitir um bloco pela rede.
 
-Depending on the nonce-gods, within a few minutes to seconds you should have
-a winning blockhash found.
+  Certifique-se de ter preenchido o template de bloco com as informações
+  do BASIC, particularmente seu nonce. Você precisará do hash do bloco
+  para informar seus pares sobre seu bloco.
 
-For this section, we're going to let the first, winning block propagate
-across the entire network before we resume looking for the next block.
+  A primeira coisa que um nó com um novo bloco deve fazer é notificar todos
+  os seus pares de que tem um bloco vencedor. Para fazer isso, precisaremos
+  da mensagem de rede Eu Tenho Blocos.
 
-Instructor Script:
+  Coloque o hash do bloco nesta mensagem e envie uma para cada um dos seus pares.
 
-	Ok, we've found our first winning block. Let's pause for a moment
-	and go through how to broadcast a block across the network.
+  AÇÃO: espere os pares receberem a mensagem de Eu Tenho Bloco. Isso deve
+  ser dois ou três dos outros nós; então, dois ou três nós, dependendo da sua
+  rede, devem não ter recebido nada.
+  ```
 
-	Make sure you've filled in the blocktemplate with the information
-	from the BASIC, particularly your nonce. You'll need the blockhash
-	to tell your peers about your block.
+## Solicitando um Bloco de um Par
 
-	The first thing a node with a new block should do is notify all
-	of its peers that it has a winning block. To do this, we'll need
-	the I Have Blocks network message.
+Aprender a transmitir blocos pode ser um pouco tedioso e usará todas as habilidades que aprendemos até agora no LARP.
 
-	Put the blockhash onto this message and send one to each of your peers.
+Se algum outro nó encontrar um hash de bloco vencedor enquanto estamos fazendo isso, diga a eles que ele é inválido e eles terão que esperar para construir em cima deste bloco atual.
 
-	ACTION: wait for peers to receive the I Have Block message. This should
-	be two to three of the other nodes; so two or three nodes depending on your
-	network should have received nothing.
+Todos devem estar trabalhando para transmitir este primeiro bloco pela rede antes de construir o próximo bloco.
 
+Roteiro do Instrutor:
 
-## Requesting a Block From a Peer
+  ```
+  As mensagens de Eu Tenho Bloco funcionam quase da mesma forma que as mensagens de Eu Tenho Transação.
+  Se você não tiver os blocos listados na mensagem,
+  deve solicitá-los.
 
-Learning how to broadcast blocks can be a bit tedious, and will use all
-of the skills that we've learned so far in the LARP.
+  Preencha uma mensagem de Enviar Blocos e envie de volta para o par que
+  lhe enviou o cartão de Eu Tenho Blocos.
 
-If any other node finds a winning blockhash while we're doing this, tell
-them that it's invalid and they'll have to wait to build on top of this
-current block.
+  AÇÃO: espere as mensagens começarem a chegar ao nó que
+  encontrou o primeiro bloco.
 
-Everyone should be working to get this first block broadcast across the
-network before building the next block.
+  Para enviar uma cópia de um bloco para um par, você precisará fazer uma cópia do seu
+  bloco vencedor.
 
-Instructor Script:
+  Como isso funciona, você precisará de um novo envelope de bloco e cartão de cabeçalho
+  de bloco. Preencha o cartão de cabeçalho de bloco com todos os dados do seu bloco.
+  Deixe de fora o hash do bloco que você calculou. Coloque isso no
+  bolso do bloco que você enviará para seu par.
 
-	I Have Block messages work almost identically to I Have Transction
-	messages. If you don't have the blocks listed on the message,
-	you should request them.
+  AÇÃO: Ajude o nó vencedor a preencher um novo cabeçalho de bloco para a cópia
+  do bloco.
 
-	Fill in a Send Blocks message and send it back to the peer that
-	sent you the I Have Blocks card.
+  Primeiro, faça uma cópia da transação coinbase e coloque
+  isso dentro da cópia do bloco.
 
-	ACTION: wait for messages to start arriving back at the node that
-	found the first block.
+  AÇÃO: Espere o nó vencedor fazer uma cópia da transação coinbase.
 
-	To send a peer a copy of a block, you'll need to make a copy of your
-	winning block.
+  Vamos usar o protocolo de Bloco Compacto para enviar blocos pela
+  rede. Isso nos economiza muito trabalho de ter que enviar
+  cópias de transações.
 
-	How this works is you'll want a new block envelope and block header
-	card. Fill in the block header card with all the data from your block.
-	Leave off the block hash that you calculated though. Put this into
-	the pocket on the block you'll be sending to your peer.
+  Para fazer isso, usaremos os cartões de Bloco Compacto. Colocaremos os txids
+  de todas as transações no bloco no cartão e
+  depois colocaremos isso dentro da cópia do bloco.
 
-	ACTION: Help winning node fill in new blockheader for the block
-	copy.
+  AÇÃO: Ajude o nó vencedor a preencher o cartão de Bloco Compacto e colocar
+  na cópia do bloco.
 
-	First you'll make a copy of the coinbase transaction, and put
-	this inside the block copy.
+  Ok, fizemos nossa primeira cópia de bloco. Estamos prontos para enviá-lo a um par
+  que o solicitou.
 
-	ACTION: Wait for winning node to make a copy of the coinbase
-	transaction.
+  AÇÃO: Envie a cópia do bloco pela corda para um dos nós que a pediu.
 
-	We're going to use the Compact Block protocol to send blocks across
-	the network. This saves us a lot of work of having to also send
-	copies of transactions.
+  AÇÃO: Faça com que o nó vencedor faça cópias para TODOS os outros nós.
+  Isso permitirá que todos validem o bloco ao mesmo tempo.
 
-	To do this, we'll use the Compact Block cards. We'll put the txids
-	from all of the transactions in the block onto the card, and
-	then place that inside the block copy.
+  AÇÃO: Distribua as cópias dos blocos para todos os nós, mesmo os
+  que não ouviram falar dele originalmente.
+  ```
 
-	ACTION: Help winning node fill in the Compact Block card and place
-	in block copy.
+## Validando um Bloco
 
-	Ok we've made our first block copy. We're ready to send it to a peer
-	that requested it.
+Vamos garantir que nosso bloco seja válido!
 
-	ACTION: Send the block copy over the wire to one of the nodes that asked
-	for it.
+Faça os nós usarem o cartão de lista de verificação de validação de bloco para acompanhar, marcando itens com seu marcador de apagar a seco.
 
-	ACTION: Have winning node make copies for ALL of the rest of the nodes.
-	This will let everyone validate the block at the same time.
+Roteiro do Instrutor:
 
-	ACTION: Distribute the block copies to all the nodes, even the
-	ones that didn't hear about it originally.
+  ```
+  Quando seu nó receber um novo bloco pela rede, precisaremos validar
+  que ele tem as informações corretas dentro dele.
 
+  Aceleramos muito as coisas para que todos possam
+  passar juntos pela validação de um novo bloco. Normalmente, você teria que esperar que
+  seu par lhe informasse sobre um bloco antes de obter uma cópia dele.
 
-## Validating a Block
+  Vamos passar juntos pelo processo de validação de bloco.
 
-Let's make sure our block is valid!
+  Primeiro, queremos verificar se o bloco tem um hash de bloco válido.
 
-Have nodes use the Block Validation checklist card to follow along,
-checking off items with their dry erase marker.
+  Usaremos nossos BASICs para fazer isso.
 
-Instructor Script:
+  AÇÃO: Digite os dados do cabeçalho do bloco no BASIC.
 
-	Once your node receives a new block from over the network we'll
-	need to validate that it's got the right information inside of it.
+  Meu BASIC diz que o hash do bloco para este bloco é <leia o hash do bloco>.
 
-	We've speeded things up a lot so that we can all walk through
-	validating a new block together. Normally you'd have to wait for
-	your peer to tell you about a block before you got a copy of it.
+  Este é um hash de bloco válido?
 
-	Let's go through the process of block validation together.
+  R: Sim
 
-	First, we'll want to check that the block has a valid blockhash.
+  Como você sabe?
 
-	We'll use our BASICs to do this.
+  R: É menor que o alvo.
 
-	ACTION: Punch in data from the blockheader into the BASIC.
+  OK, vamos verificar se as transações neste bloco são válidas.
 
-	My BASIC says that the blockhash for this block is <read out blockhash>.
+  AÇÃO: Faça os nós tirarem a transação coinbase e o Bloco Compacto
+  de dentro do bloco.
 
-	Is this a valid blockhash?
+  Neste bloco, recebemos uma coinbase e um Bloco Compacto. Precisaremos
+  garantir que temos todas as informações da transação antes de
+  terminar de verificar este bloco.
 
-	A: Yes
+  Vamos terminar de verificar o cabeçalho do bloco. Precisamos verificar se o
+  compromisso de tx está correto. Vamos somar todos os números dos
+  txids no cartão do Bloco Compacto e na coinbase. Eles são iguais
+  ao compromisso de tx?
 
-	How do you know?
+  AÇÃO: Espere os nós calcularem, devem dizer sim.
+  ```
 
-	A: Is less than the target.
+### Validando Transações de Bloco
 
-	OK let's check that the transactions in this block are valid.
+Garantir que o bloco tenha transações válidas é provavelmente a parte mais trabalhosa. Se um nó estiver faltando uma transação, ele terá que usar mensagens de rede para pedi-la aos seus pares.
 
-	ACTION: Have nodes pull out the coinbase transaction and Compact
-	Block from inside the block.
+Roteiro do Instrutor:
 
-	In this block, we got a coinbase and a Compact Block. We'll need
-	to make sure we have all the transaction info before we can
-	finish verifying this block.
+  ```
+  Em seguida, precisamos garantir que o bloco tenha transações válidas.
 
-	Let's finish verifying the blockheader. We need to check that the
-	tx commitment is correct. Let's add up all the numbers from the
-	txids in the Compact Block card and the coinbase. Do they equal
-	the tx commitment?
+  Para fazer isso, precisaremos de uma cópia real de cada uma das transações no
+  bloco. Usando a lista de transações no Bloco Compacto,
+  procure na sua mempool cada uma das transações listadas.
 
-	ACTION: Wait for nodes to calculate, should say yes.
+  Se você não tiver uma transação listada, precisará solicitá-la
+  aos seus pares usando a mensagem Enviar Transação.
 
+  AÇÃO: Ajude os nós a encontrar/obter as cópias das transações que eles
+  precisam.
 
-### Validating Block Transactions
+  Ok, todos têm as transações de que precisam para validar este bloco.
 
-Making sure the block has valid transactions is probably the most
-labor intensive part of this. If a node is missing a transaction
-they'll have to use network messages to ask for it from their peers.
+  Se você não conseguir encontrar as transações ou se uma das transações
+  já estiver no conjunto UTXO, este bloco é inválido e você pode descartá-lo.
 
-Instructor Script:
+  Este é um bloco válido, no entanto, e todos têm as transações de que precisam.
 
-	Next we need to make sure the block has valid transactions.
+  Vamos primeiro verificar a transação coinbase. Ela deve não ter entradas,
+  um txid válido e o valor da saída deve ser menor ou igual a
+  50 mais as taxas que as transações pagam.
 
-	To do this we'll need an actual copy of each of the transactions in
-	the block. Using the list of transactions on the Compact Block,
-	look through your mempool for each of the listed transactions.
+  Quantas taxas as outras transações no bloco pagam?
 
-	If you don't have a transaction listed, you'll need to request it
-	from your peers using the Send Transaction message.
+  R: <varia, dependendo do jogo>
 
-	ACTION: Help nodes find/get the copies of the transactions that they
-	need.
+  Quantos bitcoins há nas saídas da transação coinbase?
 
-	Ok everyone has the transactions they need to validate this block.
+  R: <varia, deve ser igual a 50 + taxas da pergunta anterior>
 
-	If you aren't able to find the transactions or if one of the transactions
-	is already in the UTXO set, this block is valid and you can discard it.
+  Ótimo. Esta é uma transação coinbase válida.
 
-	This is a valid block though, and everyone has the transactions they need.
+  Se as transações forem aquelas que você já aprovou, não precisa
+  revalidá-las. Isso é uma coisa boa sobre ter transações
+  na sua mempool - elas já estão validadas!
 
-	Let's first check the coinbase transaction. It should have no inputs,
-	a valid txid, and the output value should be less than or equal to
-	50 plus whatever fees the tranactions pay.
+  Uma última coisa a verificar nas transações em um bloco é
+  que todas elas gastam de UTXOs ou de outras transações
+  no mesmo bloco.
 
-	How many fees do the other trasaction in the block pay?
+  Se alguma transação no bloco listar como uma entrada um txid que não está
+  também naquele bloco ou no conjunto UTXO, todo o
+  bloco é inválido.
+  ```
 
-	A: <varies, depending on game>
+### Marcando Saídas como Gastas
 
-	How much bitcoin is in the outputs of the coinbase transaction?
+Roteiro do Instrutor:
 
-	A: <varies, should be equal to 50 + fees from previous question>
+  ```
+  Agora que sabemos que este bloco é válido, temos uma tarefa final
+  para fazer antes de considerarmos este bloco parte da nossa blockchain.
 
-	Great. This is a valid coinbase transaction.
+  Precisamos promover todas as transações que estavam dentro do bloco
+  da mempool para o conjunto UTXO.
 
-	If the transactions are ones you've already approved you don't have to
-	reverify them. This is one nice thing about having transactions
-	in your mempool -- they're already validated!
+  Também precisamos riscar qualquer entrada que tenha sido gasta neste bloco.
 
-	One last thing to check for the transactions in a block is
-	that they all spend from either UTXOs or from other transactions
-	in the same block.
+  Encontre a saída que cada entrada neste bloco gasta e marque-a.
 
-	If any transaction in the block lists as an input a txid that isn't
-	also in that block or in the UTXO set, that *entire* block is invalid.
+  Uma vez que uma saída é gasta, ela é removida do conjunto UTXO e
+  não pode ser gasta novamente.
 
+  Qualquer nova saída que foi criada neste bloco é adicionada ao
+  conjunto UTXO.
 
-### Marking Outputs as Spent
+  AÇÃO: Faça os nós marcarem as saídas gastas e colocarem novas transações
+  na cesta do conjunto UTXO. Isso inclui a transação coinbase.
 
-Instructor Script:
+  Ok, finalmente, podemos adicionar este bloco à nossa blockchain.
 
-	Now that we know this block is valid, we have one final task
-	to do before we're able to consider this block part of our blockchain.
+  AÇÃO: Coloque o novo bloco na blockchain (Estojo de Cartão Index) junto
+  com a Transação Gênese.
+  ```
 
-	We need to promote all of the transactions that were inside the block
-	from the mempool into the UTXO set.
+## Construindo uma Cadeia
 
-	We also need to cross out any inputs that got spent in this block.
+Certo. Finalmente estamos prontos para construir uma blockchain.
 
-	Find the output that every input in this block spends, and mark it out.
+Roteiro do Instrutor:
 
-	Once an output is spent, it is removed from the UTXO set and
-	cannot be spent again.
+  ```
+  Finalmente completamos todo o ciclo de vida de uma transação e
+  adicionamos novos blocos à cadeia bitcoin. Estamos apenas um bloco
+  dentro, no entanto.
 
-	Any new outputs that were created in this block get added to
-	the UTXO set.
+  Vamos tentar encontrar o próximo bloco.
 
-	ACTION: Have nodes mark out spent outputs and place new transactions
-	into the UTXO set basket. This includes the coinbase transaction.
+  Para todos que *não* venceram este bloco, precisarão atualizar
+  seu template de bloco.
 
-	Ok finally, we can add this block to our blockchain.
+  Jogue fora o cabeçalho do bloco e comece de novo, desta vez usando o
+  hash do bloco do bloco mais recente que você recebeu e atualize
+  a hora para agora.
 
-	ACTION: Place new block into blockchain (Index Card Case) along
-	with the Genesis Transaction.
+  Você também precisará retirar quaisquer transações que foram mineradas
+  no último bloco. Você pode ter novo espaço, então deve encontrar
+  algumas novas transações da mempool para adicionar a ele.
 
+  Não se esqueça de atualizar a transação coinbase se as taxas
+  mudarem e recalcular o compromisso de tx no cabeçalho do bloco.
 
-## Building a Chain
+  Depois de ter um template de bloco atualizado, digite os dados do cabeçalho do bloco
+  no BASIC e cruze os dedos.
 
-Alright. We're finally ready to build a blockchain.
+  Que o minerador mais sortudo vença!
 
-Instructor Script:
+  AÇÃO: Entregue o jogo aos nós. Eles agora devem saber
+  como minerar blocos, construir cabeçalhos etc.
 
-	We've finally completed the entire lifecycle of a transaction and
-	adding new blocks to the bitcoin chain. We're only one block
-	in though.
+  AÇÃO: Encerre o jogo após alguns blocos ou quando os participantes do nó
+  começarem a perder o interesse.
+  ```
 
-	Let's try to find the next block.
+## Em Resumo
 
-	For everyone who *didn't* win this block, you'll need to update
-	your block template.
+Nesta parte do LARP, nós:
 
-	Throw away the blockheader and start over, this time using the
-	blockhash from the most recent block you received, and update
-	the time to now.
+- Usamos os BASICs para encontrar um nonce vencedor
+- Transmitimos uma transação para os pares
+- Validamos um novo bloco
+- Aprendemos como funciona o protocolo de Bloco Compacto
+- Promovemos transações da mempool para o conjunto UTXO
+- Construímos uma blockchain
 
-	You'll also need to pull out any transactions that got mined
-	in the last block. You may have new space, so you should find
-	some new transactions from the mempool to add to it.
+Parabéns, você conseguiu! Você fez a blockchain do Bitcoin ganhar vida.
 
-	Don't forget to update the coinbase transaction if the fees
-	change and recalculate the tx commitment on the blockheader.
-
-	Once you have an updated block template, punch the blockheader
-	data into the BASIC and cross your fingers.
-
-	May the luckiest miner win!
-
-	ACTION: Turn gameplay over to the nodes. They should now know
-	how to mine for blocks, build headers etc.
-
-	ACTION: End gameplay after a few blocks or when node participants
-	start losing interest.
-
-## In Sum
-
-In this portion of the LARP we've:
-
-- Used the BASICs to find a winning nonce
-- Broadcast a transaction to peers
-- Validated a new block
-- Learned how the Compact Block protocol works
-- Promoted transactions from the mempool to the UTXO set
-- Built a blockchain
-
-Congrats, you did it! You made the Bitcoin blockchain come to life.
