@@ -1,139 +1,126 @@
-# Wrapping Up - final notes
+# Encerramento - notas finais
 
-You've made it to the end of the LARP. All that's left to do
-is do a wrap up with the participants and clean up.
+Você chegou ao final do LARP. Tudo o que resta fazer é um encerramento com os participantes e a limpeza.
 
-Estimated time: 15m
+Tempo estimado: 15 minutos
 
-## Table of Contents
+## Índice
 
-  * [Materials Used](#materials-used)
-  * [Achieving Our Goals](#achieving-our-goals)
-  * [Closing Discussion](#closing-discussion)
-  * [Clean Up](#clean-up)
+  * [Materiais Usados](#materiais-usados)
+  * [Alcançando Nossos Objetivos](#alcançando-nossos-objetivos)
+  * [Discussão de Encerramento](#discussão-de-encerramento)
+  * [Limpeza](#limpeza)
 
-## Materials Used
+## Materiais Usados
 
-In this phase of the LARP, we'll use the following items:
+Nesta fase do LARP, usaremos os seguintes itens:
 
-	- ballpoint pens
-	- node score cards
-	- master score card notepad
+  - canetas esferográficas
+  - cartões de pontuação dos nós
+  - bloco de notas de pontuação mestre
 
+## Alcançando Nossos Objetivos
 
-## Achieving Our Goals
+Vamos ver quem fez o melhor trabalho ganhando bitcoin pela rede!
 
-Let's see who did the best job earning bitcoin across the network!
+Nota: Veja a seção em [Configuração](docs/01-setup#rewards-for-nodes) sobre o que usar como Recompensa.
 
-Note: See section in [Setup](docs/01-setup#rewards-for-nodes) about what to use as a Reward.
+Roteiro do Instrutor:
 
-Instructor Script:
+  ```
+  Ok. Quem fez o melhor trabalho de colocar seus blocos na
+  rede? Vamos descobrir.
 
-	Ok. Who did the best job of getting their blocks out to the
-	rest of the network? Let's find out.
+  AÇÃO: Peça para cada nó dizer o comprimento da sua blockchain.
+  O(s) nó(s) com a cadeia mais longa deve(m) ganhar uma Recompensa.
 
-	ACTION: Have each node tell you how long their blockchain
-	is. The node(s) with the longest chain should win a Reward.
+  Ok. Quem fez o melhor trabalho de colocar seus blocos nas
+  cadeias de outros nós? Isso às vezes é difícil de descobrir.
+  Vamos pedir aos nós que nos ajudem a calcular a soma do saldo de um nó
+  no seu conjunto UTXO.
 
-	Ok. Who did the best job of getting their blocks into
-	other node's chains? This is sometimes hard to figure out.
-	Let's ask nodes to help us calculate the sum of a node's balance
-	in their UTXO set.
+  AÇÃO: Distribua Cartões de Pontuação para cada nó e peça para que preencham
+  e devolvam para você. Peça que deixem a cor da própria chave
+  *em branco*.
 
-	ACTION: Pass out Score Cards to each node, and have them fill them
-	out and return them to you. Have them leave their own key color
-	*blank*.
+  AÇÃO: Usando o Cartão de Pontuação Mestre, descubra qual é o nó vencedor!
 
-	ACTION: Using the Master Score Card, figure out who the winning
-	node is!
+  AÇÃO: Anuncie o nó vencedor e entregue o Grande Prêmio (se houver).
+  ```
 
-	ACTION: Announce the winning node, hand out Grand Prize (if you
-	have one).
+## Discussão de Encerramento
 
+O LARP é uma ótima oportunidade para conduzir uma discussão sobre
+o que os participantes aprenderam sobre bitcoin, coisas que ainda
+não têm certeza e sugestões de coisas que mudariam para melhorar
+o protocolo.
 
-## Closing Discussion
+Aqui estão algumas perguntas para iniciar a discussão:
 
-The LARP makes for a great opportunity to lead a discussion about
-what participants have learned about bitcoin, things they're still
-not sure about, and suggestions for things they would change to make
-the protocol better.
+  - O que você aprendeu sobre Bitcoin que não sabia
+    antes de jogar?
+  - Bitcoin tem tempos de bloco de dez minutos para que cada
+    nó tenha tempo de obter os blocos mais recentes,
+    validá-los e depois transmiti-los aos seus pares.
+    Você acha que 10 minutos é suficiente?
+  - Todos terminaram com os mesmos blocos na sua blockchain?
+  - O que acontece se a rede divergir?
+  - Qual é uma coisa sobre Bitcoin que não respondemos hoje?
 
+Adoraríamos ouvir o que seus participantes acharam! Sinta-se à vontade para Tweetar para nós em [@base58btc](https://twitter.com/base58btc) ou enviar uma nota para [hello@base58.school](mailto:hello@base58.school).
 
-Here's some questions to kick off the discussion:
+## Limpeza
 
-	- What did you learn about Bitcoin that you didn't
-	  know before you played?
-	- Bitcoin has ten minute block times so that every
-	  node has time to both get the latest blocks,
-	  validate them, and then broadcast them out to their peers.
-	  Do you think 10m is long enough?
-	- Did everyone end up with the same blocks in their blockchain?
-	- What happens if the network diverges?
-	- What's one thing about Bitcoin that we didn't answer today?
+Peça aos nós para trazerem todos os seus suprimentos para um local central, onde você pode guardar as coisas.
 
+Aqui está uma breve lista de verificação do que descartar e reiniciar para a próxima vez.
 
-We'd love to hear what your participants thought! Feel free to Tweet
-at us at [@base58btc](https://twitter.com/base58btc) or send us a note
-at [hello@base58.school](mailto:hello@base58.school).
+- esvazie os cabeçalhos dos blocos de todos os blocos, exceto
+  o Bloco Gênese
+- jogue fora
+  - corda cortada
+  - cabeçalhos de bloco usados
+  - cartões de transação usados
+  - cartões de bloco compacto usados
+  - cartões de pontuação usados
+  - cartão de Pontuação Mestre usado
+- limpe qualquer marcador de apagar a seco de qualquer cartão de rede
+- limpe qualquer marcador de apagar a seco dos cartões de validação de transações
+- limpe qualquer marcador de apagar a seco dos cartões de validação de blocos
+- classifique os cartões de rede em 6 grupos, com 5 de cada tipo
+- classifique os adesivos de chave + cadeado em 6 conjuntos de cada cor
+- embale:
+  - argolas de fichário soltas
+  - quaisquer cartões de transação extras
+  - canetas esferográficas
+  - marcadores de apagar a seco
+  - carimbos de aprovação autoentintados
+  - cestas de plástico
+  - mineradores
+  - folhas de dicas de validação de bloco + transação
+- faça novas transações para o próximo jogo
+  - [Transações Gênese](docs/01-setup.md#genesis-transaction)
+  - [Primeiras Transações de Rede](docs/01-setup.md#first-network-transaction)
+- coloque as Transações Gênese nos Blocos Gênese, coloque dentro das Blockchains
 
+## Em Resumo
 
-## Clean Up
+Nesta parte do LARP, nós:
 
-Have nodes bring all of their supplies to a central location, where you
-can pack things away.
+- Descobrimos qual nó minerou mais bitcoin
+- Realizamos uma discussão de pós-morte sobre o LARP
+- Fizemos a limpeza
 
-Here's a short checklist of what to discard and reset for next time.
+## Agradecimentos
 
-- empty the blockheaders out of the all the blocks except
-  the Genesis Block
-- throw away
-  - cut string
-  - used blockheaders
-  - used transaction cards
-  - used compact block cards
-  - used score cards
-  - used Master Score card
-- wipe any dry erase marker off any network cards
-- wipe any dry erase marker off the transaction validation cards
-- wipe any dry erase marker off the block validation cards
-- sort network cards into 6 groups, with 5 of each type
-- sort key + lock stickers into 6 sets of each color
-- pack up:
-	- loose binder rings
-	- any extra transaction cards
-	- ballpoint pens
-	- dry erase markers
-	- Self-inking Approved stamps
-	- plastic baskets
-	- miners
-	- block + transaction validation cheatsheets
-- make new transactions for the next game
-	- [Genesis Transactions](docs/01-setup.md#genesis-transaction)
-	- [First Network Transactions](docs/01-setup.md#first-network-transaction)
-- put Genesis Transactions into the Genesis Blocks, place inside Blockchains
+Obrigado por jogar o Base58's World Famous Bitcoin LARP. Esperamos que você tenha aprendido
+mais sobre como o bitcoin e as redes descentralizadas funcionam.
 
+Se você quiser aprender mais sobre bitcoin, pode encontrar nossas ofertas de aulas presenciais
+e online em nosso site [Base58⛓️🔓](https://base58.school).
 
-## In Sum
+## Autores
 
-In this portion of the LARP we've:
-
-- Figured out what node mined the most bitcoin
-- Held a Post Mortem discussion about the LARP
-- Cleaned up
-
-
-## Thanks
-
-Thanks for playing Base58's World Famous Bitcoin LARP. We hope you learned
-more about how bitcoin and decentralized networks work.
-
-If you'd like to learn more about bitcoin, you can find our current in-person
-and online class offerings on our website [Base58⛓️🔓](https://base58.school)
-
-
-## Authors
-
-@niftynei is mainly responsible.
-Enormous thanks to @murchandamus for his initial feedback, review, and assistance in
-running the original LARP game.
-
+@niftynei é principalmente responsável.
+Enormes agradecimentos a @murchandamus por seu feedback inicial, revisão e assistência na
+realização do jogo LARP original.
