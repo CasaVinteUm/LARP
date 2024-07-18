@@ -1,221 +1,208 @@
-# Block Building - making block templates
+# Construção de Blocos - criando templates de blocos
 
-We're getting close to a final working version of
-the bitcoin network. We've got transactions. Let's
-tackle the last piece of the puzzle: blocks.
+Estamos nos aproximando de uma versão final funcional da rede bitcoin. Temos transações. Vamos lidar com a última peça do quebra-cabeça: blocos.
 
-Estimated Time: 10m
+Tempo Estimado: 10 minutos
 
+## Índice
 
-## Table of Contents
+  * [Materiais Usados](#materiais-usados)
+  * [Construindo Seu Primeiro Template de Bloco](#construindo-seu-primeiro-template-de-bloco)
+  * [Escolhendo Transações para um Bloco](#escolhendo-transações-para-um-bloco)
+  * [Escrevendo uma Transação Coinbase](#escrevendo-uma-transação-coinbase)
+  * [Preenchendo o Cabeçalho do Bloco](#preenchendo-o-cabeçalho-do-bloco)
+  * [Calculando o 'compromisso de tx'](#calculando-o-compromisso-de-tx)
+  * [Pronto para Minerar o Nonce](#pronto-para-minerar-o-nonce)
+  * [Em Resumo](#em-resumo)
 
-	* [Materials Used](#material-used)
-	* [Building Your First Block Template](#building-your-first-block-template)
-	* [Picking Transactions for a Block](#picking-transactions-for-a-block)
-	* [Writing A Coinbase Transaction](#writing-a-coinbase-transaction)
-	* [Filling in the Block Header](#filling-in-the-block-header)
-	* [Calculating the 'tx commitment'](#calculating-the-tx-commitment)
-	* [Ready to Mine for the Nonce](#ready-to-mine-for-the-nonce)
-	* [In Sum](#in-sum)
+## Materiais Usados
 
+Nesta fase do LARP, usaremos os seguintes itens:
 
-## Materials Used
+  - envelopes de template de bloco
+  - cartões de cabeçalho de bloco em branco
+  - um cartão de transação em branco
+  - canetas esferográficas
 
-In this phase of the LARP, we'll use the following items:
+## Construindo Seu Primeiro Template de Bloco
 
-	- block template envelopes
-	- blank blockheader cards
-	- one blank transaction card
-	- ballpoint pens
+Roteiro do Instrutor:
 
+  ```
+  Agora que temos transações, vamos construir nosso
+  primeiro template de bloco.
 
-## Building Your First Block Template
+  AÇÃO: Levante um envelope de template de bloco vazio,
+  para que os participantes saibam do que você está falando.
 
-Instructor Script:
+  Primeiro, precisaremos preencher o bloco com transações.
+  Há espaço limitado em cada bloco, então teremos que
+  tomar algumas decisões sobre o que incluir.
 
-	Now that we've got transactions, let's build our
-	first block template.
+  Em seguida, queremos fazer uma transação coinbase
+  que pagará qualquer taxa de minerador das transações
+  que escolhemos mais a recompensa do bloco para nossa própria chave pública.
 
-	ACTION: Hold up an empty block template envelope,
-	so participants know what you're talking about.
+  Finalmente, queremos preencher o cabeçalho do bloco.
+  ```
 
-	First we'll need to fill the block with transactions.
-	There's limited space in each block, so we'll have
-	to make some decisions about what gets included.
+## Escolhendo Transações para um Bloco
 
-	Next, we'll want to make a coinbase transaction
-	that will pay any miner fees from the transactions
-	we've chosen plus the block reward to our own pubkey.
+Roteiro do Instrutor:
 
-	Finally, we'll want to fill in the block header.
+  ```
+  Para nosso LARP, cada bloco pode conter um total de *quatro*
+  transações. Isso significa que podemos escolher *três* transações de rede
+  da nossa mempool para incluir em um bloco.
 
+  Quem construir o bloco decidirá quais
+  transações devem ser incluídas.
 
-## Picking Transactions for a Block
+  Vamos escolher três transações para colocar no nosso template de bloco agora.
 
-Instructor Script:
+  Uma coisa a prestar atenção é quanto cada transação
+  está pagando em taxas. Você pode ficar com essas taxas para você
+  se seu bloco for minerado.
 
-	For our LARP, each block can fit a total of *four*
-	transactions. This means we can pick *three* network
-	transactions from our mempool to include in a block.
+  Outra coisa a prestar atenção são as entradas de uma transação.
+  Se você incluir uma transação em um bloco, mas não incluir a
+  transação que suas entradas nomeiam, então seu bloco não será válido.
 
-	Whoever builds the block will get to decide which
-	transactions they should include.
+  AÇÃO: Permita que os nós tenham alguns minutos para encontrar três transações
+  e colocá-las no seu template de bloco. Ande por aí e ajude
+  os nós a verificarem quanto estão ganhando em taxas e
+  que não estão esquecendo de incluir uma transação.
+  ```
 
-	Let's pick out three transactions to put into our block
-	template now.
+## Escrevendo uma Transação Coinbase
 
-	One thing to pay attention to is how much each transaction
-	is paying you in fees. You get to keep those fees for yourself
-	if your block gets mined.
+Roteiro do Instrutor:
 
-	Another thing to pay attention to is the inputs to a transaction.
-	If you include a transaction in a block but don't include the
-	transaction that its inputs name, then your block won't be valid.
+  ```
+  Agora que identificamos as transações que vão para
+  nosso bloco, estamos prontos para fazer nossa transação coinbase.
 
-	ACTION: Allow nodes a few minutes to find three transactions
-	and put them into their block template. Walk around and help
-	nodes check that they know how much they're making in fees and
-	that they're not forgetting to include a transaction.
+  Você deve se lembrar da Transação Gênese como isso
+  funciona.
 
+  Encontre um cartão de transação em branco e desenhe um grande X sobre
+  a seção de entradas. Transações coinbase não têm entradas.
 
-## Writing A Coinbase Transaction
+  Além disso, adicione um novo ID de transação a esta nova transação.
 
-Instructor Script:
+  AÇÃO: Pegue um cartão de transação em branco do nó mais próximo
+  e desenhe um grande X sobre a seção de entradas. Escreva
+  um novo ID de transação nele. Levante sua transação coinbase
+  para que os nós possam ver o que você fez. Se você tiver assistentes,
+  peça-lhes que ajudem os outros nós a fazer isso.
 
-	Now that we've identified the transactions that go into
-	our block, we're ready to make our coinbase transaction.
+  Agora só precisamos descobrir quanto podemos enviar para nós mesmos
+  na coinbase. Encontre o cadeado que corresponde à sua
+  chave secreta do nó e coloque-o na primeira saída.
 
-	You might remember from the Genesis Transaction how this
-	works.
+  AÇÃO: Coloque seu próprio cadeado preto na saída e levante-o
+  para que os nós possam ver + copiar o que você fez.
 
-	Find a blank transaction card, and place a big X over
-	the inputs section. Coinbase transactions don't have inputs.
+  Cada bloco vale 50 novos bitcoins. Então, no mínimo, teremos
+  50 novos bitcoins nesta saída.
 
-	Also add a new transaction id onto this new transaction.
+  Se as transações que você está incluindo pagaram alguma taxa ao
+  minerador, você deve adicionar esse número a 50 para obter o valor total.
 
-	ACTION: Pick up a blank transaction card from the nearest
-	node, and draw a big X over the input section. Write
-	a new transaction id onto it. Hold your coinbase transaction up
-	so nodes can see what you've done.  If you have assistants,
-	have them help the other nodes do this.
+  Por exemplo, se você tiver 3 transações no bloco e cada uma
+  pagar 1 bitcoin em taxas, o valor total que posso reivindicar na
+  saída da coinbase é 53 bitcoins.
 
-	Now we just need to figure out how much we can send ourselves
-	in the coinbase. Find the lock that corresponds to your
-	node's secret key and place this on the first ouput.
+  AÇÃO: Escreva 53 bitcoins na transação coinbase de exemplo
+  que você está segurando e levante-a para que os nós vejam.
 
-	ACTION: Place your own black lock on the output and hold it
-	up so nodes can see + copy what you've done.
+  Ok, todos tirem alguns minutos para terminar de preencher sua coinbase.
 
-	Each block is worth 50 new bitcoin. So we'll at a minimum get
-	50 new bitcoins in this output.
+  AÇÃO: Ande por aí e ajude cada nó a preencher a transação coinbase.
+  ```
 
-	If the transactions that you're including paid any fees to the
-	miner, you should add this number to 50 to get the total amount.
+## Preenchendo o Cabeçalho do Bloco
 
-	For example, if you have 3 transactions in the block and they each
-	pay 1 bitcoin each in fees, the total amount that I can claim in
-	the coinbase output is 53 bitcoin.
+Um cabeçalho de bloco completo é o que torna um bloco válido! Nesta fase, teremos tudo, exceto uma peça faltando: o nonce que bloqueará os outros dados no cabeçalho do bloco e transformará nosso 'template de bloco' em um 'bloco' válido e vencedor.
 
-	ACTION: Write down 53 bitcoin onto the coinbase transaction example
-	you're holding and hold it up for the nodes to see.
+Roteiro do Instrutor:
 
-	Ok, everyone take a few minutes to finish filling in your coinbase.
+  ```
+  Agora que temos um bloco completo, estamos prontos para preencher
+  o cabeçalho do bloco. Este é o último passo para construir um bloco.
 
-	ACTION: Walk around and help each node fill in the coinbase transaction.
+  AÇÃO: Levante um cartão de Cabeçalho de Bloco para que os nós saibam no que estamos
+  trabalhando. Dê-lhes um momento para encontrar um para si.
 
+  O primeiro campo no cabeçalho do bloco é o hash da transação anterior.
+  Isso cria uma cadeia de um bloco para o próximo e permite que
+  qualquer pessoa que receba este bloco saiba em qual cadeia estamos construindo.
 
-## Filling in the Block Header
+  Estaremos construindo o primeiro bloco na nossa blockchain a partir do
+  Bloco Gênese. Vamos ver qual foi o hash do bloco para aquele bloco.
 
-A complete block header is what makes a valid block! In this
-phase we'll have everything except one missing piece: the nonce
-which will lock in the other data in the block header and make
-turn our 'block template' into a valid and winning 'block'.
+  AÇÃO: Tire um Bloco Gênese, no qual você deve ter escrito
+  o hash do bloco que você calculou na primeira fase. Leia-o
+  para que todos possam escrevê-lo no cabeçalho do bloco.
 
-Instructor Script:
+  O compromisso de tx teremos que calcular. Vamos voltar a isso.
 
-	Now that we've got a full block, we're ready to fill in
-	the block header. This is the last step for building a block.
+  A hora atual é <leia a hora no telefone/relógio>. Vamos colocar isso
+  como a hora.
 
-	ACTION: Hold up a Block Header card so nodes know what we're
-	working on. Give them a moment to find one for themselves.
+  O alvo de dificuldade atual é o mesmo do Bloco Gênese,
+  ou 8500*. Vamos escrever 8500 no campo de alvo.
 
-	The first field on the block header is the previous transaction
-	hash. This creates a chain from one block to the next, and lets
-	anyone who receives this block know what chain we're building on.
+  O último campo é um campo de nonce. Encontrar um valor válido para este campo
+  é difícil. Usaremos nossos BASICS em breve para tentar calculá-lo
+  para nós.
+  ```
 
-	We'll be building the first block in our blockchain off of the
-	Genesis block. Let's see what the blockhash was for that block.
+## Calculando o compromisso de tx
 
-	ACTION: Pull out a Genesis Block, which you should have written
-	the blockhash that you calculated in the very first phase onto.
-	Read it off so everyone can write it onto their blockheader.
+Roteiro do Instrutor:
 
-	The tx commitment we'll have to calculate. Let's come back to that.
+  ```
+  Para descobrir o campo de compromisso de tx, precisaremos de uma
+  calculadora e das transações que você está incluindo no bloco.
+  Você pode querer usar a calculadora no seu telefone.
 
-	The time is currently <read time off phone/watch>. Let's put this
-	down for the time.
+  O compromisso de tx faz com que um nó malicioso não possa pegar um
+  bloco válido e trocar por novas transações. Ele compromete-se com as transações
+  que escolhemos para este bloco. É por isso que chamamos de compromisso de tx.
 
-	The current difficulty target is the same as the Genesis Block,
-	or 8500*. Let's write 8500 into the target field.
+  Nosso compromisso de tx é a soma de todos os números nos txids das
+  transações dentro dos nossos blocos.
 
-	The last field is a nonce field. Finding a valid value for this field
-	is difficult. We'll use our BASICS here shortly to try to calculate
-	it for us.
+  AÇÃO: Leia os IDs de transação dentro do template de bloco de um nó.
+  Faça-os usar sua calculadora para somar esses números. Diga à turma qual
+  é o compromisso de tx e faça com que a equipe do nó coloque esse número no seu
+  compromisso de tx.
 
+  AÇÃO: Faça com que todos os nós calculem e preencham o compromisso de tx no
+  cabeçalho do bloco. Alguns nós podem ter o mesmo compromisso de tx, mas
+  todos devem ser diferentes, dependendo do que os nós escolheram para seu
+  txid da coinbase.
+  ```
 
-## Calculating the tx commitment
+_Nota de Protocolo_: Participantes e facilitadores atentos podem perceber que é muito fácil criar uma nova transação que reutiliza o mesmo número do ID de transação da transação que você deseja substituir em um bloco. No protocolo bitcoin, eles usam algo chamado Raiz de Merkle, que é praticamente impossível trocar uma transação e obter a mesma raiz.
 
-Instructor Script:
+Não podemos calcular uma Raiz de Merkle para o LARP, pois é um pouco complexo demais. Em vez disso, usamos uma matemática muito mais simples.
 
-	To figure out the tx commitment field, we're going to need a
-	calculator and the transactions that you're including in the block.
-	You might want to use the calculator on your phone.
+## Pronto para Minerar o Nonce
 
-	The tx commitment makes it such that a malicious node can't take a
-	valid block and swap in new transactions. It commits to the transactions
-	we've picked out for this block. That's why we call it a tx commitment.
+Neste ponto, cada nó deve ter um cabeçalho de bloco quase completo. Eles só estarão faltando o campo nonce.
 
-	Our tx commitment is the sum of all of the numbers on the txids of
-	the transactions inside our blocks.
+Este é o campo que precisaremos de nossos BASICS. Estamos prontos para a fase de mineração do LARP!
 
-	ACTION: Read off the transaction ids inside one node's block template.
-	Have them use their calculator to add these up. Tell the class what
-	the tx commitment is + have the node team put that number onto their
-	tx commitment.
+## Em Resumo
 
-	ACTION: Have all nodes calculate and fill in the tx commitment on
-	their block header. Some nodes may have the same tx commitment, but
-	they should all be different, depending on what nodes chose for their
-	coinbase txid.
+Nesta parte do LARP, nós:
 
+- Escolhemos transações da mempool
+- Calculamos o valor da saída da coinbase
+- Escrevemos nossa própria transação coinbase
+- Preenchemos quase todos os campos do cabeçalho do bloco
+- Aprendemos como fazer um compromisso de transação
 
-_Protocol Note_: Astute participants and facilitators may realize that it's
-quite easy to make a new transaction that reuses the same number from the
-transaction id of the transaction you want to replace in a block. In the
-bitcoin protocol, they use something called a Merkle Root, which is practically
-impossible to swap a transaction out and get the same root.
-
-We can't calculate a Merkle Root for the LARP, as it's a bit too complex. Instead
-we use much simpler math.
-
-
-## Ready to Mine for the Nonce
-
-At this point, every node should have an almost complete block header.
-They'll just be missing the nonce field.
-
-This is the field that we'll need our BASICS for. We're ready for the mining
-phase of the LARP!
-
-
-## In Sum
-
-In this portion of the LARP we've:
-
-- Picked out transactions from the mempool
-- Calculated the coinbase output value
-- Written our own coinbase transaction
-- Filled in almost all the fields on our block header
-- Learned how to make a transaction commitment
-
-We're now ready to start mining for blocks.
+Agora estamos prontos para começar a minerar blocos.
