@@ -1,366 +1,344 @@
-# Transactions: Validating + Writing
+# Transações: Validando + Escrevendo
 
-We've now had a whirlwind introduction to blocks and transactions.
+Agora tivemos uma introdução rápida a blocos e transações.
 
-Let's slow down a bit and spend some time validating and writing
-our own transaction from scratch.
+Vamos desacelerar um pouco e passar algum tempo validando e escrevendo nossa própria transação do zero.
 
-Estimated time: 15m
+Tempo estimado: 15 minutos
 
+## Índice
 
-## Table of Contents
+  * [Materiais Usados](#materiais-usados)
+  * [Transações da Rede](#transações-da-rede)
+    * [Entradas](#entradas)
+    * [Saídas](#saídas)
+    * [TXIDs](#txids)
+    * [Transações Válidas](#transações-válidas)
+  * [A Mempool](#a-mempool)
+  * [Verificação de Saldo da Carteira](#verificação-de-saldo-da-carteira)
+  * [Escrevendo Transações](#escrevendo-transações)
+    * [Saídas de Troco](#saídas-de-troco)
+    * [Taxas de Transação](#taxas-de-transação)
+  * [Adicionando Transações à Mempool](#adicionando-transações-à-mempool)
+  * [Em Resumo](#em-resumo)
 
-  * [Materials Used](#materials-used)
-  * [Network Transactions](#network-transactions)
-    * [Inputs](#inputs)
-	* [Outputs](#outputs)
-	* [TXIDs](#txids)
-	* [Valid Transactions](#valid-transactions)
-  * [The Mempool](#the-mempool)
-  * [Wallet Balance Check](#wallet-balance-check)
-  * [Writing Transactions](#writing-transactions)
-    * [Change Outputs](#change-outputs)
-	* [Transaction Fees](#transaction-fees)
-  * [Adding Transactions to the Mempool](#adding-transactions-to-the-mempool)
-  * [In Sum](#in-sum)
+## Materiais Usados
 
+Nesta fase do LARP, usaremos os seguintes itens:
 
-## Materials Used
+  - a primeira transação de rede;
+  - cartões de transação em branco;
+  - o carimbo de aprovado;
+  - adesivos de chave;
+  - adesivos de cadeado;
+  - canetas esferográficas;
+  - o cesto de mempool;
+  - lista de verificação de validação de transação;
 
-In this phase of the LARP, we'll use the following items:
+## Transações da Rede
 
-	- the first network transaction
-	- blank transaction cards
-	- the self-inking approved stamp
-	- key stickers
-	- lock stickers
-	- ballpoint pens
-	- the mempool basket
-	- transaction verification checklist
+Roteiro do Instrutor:
 
+  ```
+  Agora que passamos por tudo no nosso download do nó do bitcoin core,
+  estamos prontos para começar a receber tráfego de rede. Digamos que todos os nossos nós
+  estão prontos e online e receberam sua primeira transação de um 'nó fantasma'
+  (eu, o facilitador).
 
-## Network Transactions
+  AÇÃO: Ande por todos os nós e entregue-lhes a
+  primeira transação da rede
 
-Instructor Script:
+  Quando você recebe dados da rede, precisa verificá-los.
+  Isso porque você não sabe o que lhe foi enviado.
 
-	Now that we've gone through everything in our bitcoin
-	core node download, we're ready to start getting network
-	traffic. Let's say that all of our nodes are now ready and
-	online and they've gotten their first incoming transaction
-	from a 'ghost' node (me, the facilitator).
+  Não confie, verifique.
 
-	ACTION: Walk around to every node and hand them the
-	[First Network Transaction](01-setup.md/#first-network-transaction).
+  Há alguns passos para verificar uma tx. Vamos passar por eles juntos.
+  ```
 
-	When you get data in from over the network, you need to verify
-	it. This is because you don't know what you've been sent.
+### Entradas
 
-	Don't trust, verify.
+Uma entrada de bitcoin aponta para uma saída de bitcoin. Aqui aprenderemos como encontrar saídas que uma entrada está gastando.
 
-	There's a few steps to verifying a node. Let's go through them
-	together.
+Aqui encontramos nosso segundo [erro intencional](#erros-propositais): a primeira transação de rede está sem sua assinatura.
 
+Os nós devem usar o cartão de lista de verificação de validação de transação para acompanhar, marcando itens com seu marcador de apagar a seco.
 
-### Inputs
+Roteiro do Instrutor:
 
-A bitcoin input points to a bitcoin output. Here we'll learn how to
-find outputs that an input is spending.
+  ```
+  Para uma transação de bitcoin, precisamos saber quanto bitcoin
+  temos disponível para gastar em suas saídas. Para fazer isso,
+  olhamos para as 'entradas' de uma transação.
 
-Here we run into our second [intentional mistake](#purposeful-mistakes): the first
-network transaction is missing its signature.
+  Como sabemos quanto vale uma entrada de bitcoin?
 
-Have nodes use the Transaction Validation checklist card to follow along,
-checking off items with their dry erase marker.
+  R: ... (deixe os nós adivinharem)
 
+  Está escrito no campo de entrada da transação?
 
-Instructor Script:
+  R: Não, não está.
 
-	For a bitcoin transaction, we need to know how much bitcoin
-	we have available to spend in its outputs. To do this,
-	we look at the 'inputs' of a transaction.
+  Ok, onde podemos ir para descobrir quanto vale uma entrada?
 
-	How do we know how much a bitcoin input is worth?
+  R: a saída para a qual ela 'aponta'.
 
-	A: ... (let nodes guess)
+  Podemos encontrar a saída que esta entrada está gastando usando
+  o ID da transação e o número da saída listados na entrada.
 
-	Is it written on the transaction input field?
+  Para esta primeira transação de rede, diz que estamos gastando
+  da transação 'eagle33' e saída número zero.
 
-	A: No, it is not.
+  Onde podemos ver quanto vale a saída zero da transação 'eagle33'?
 
-	Ok, where can we go to find out how much an input is worth?
+  R: Encontre a saída no conjunto UTXO.
 
-	A: the output that it 'points' to.
+  Quanto vale a saída zero da eagle33?
 
-	We can find the output that this input is spending by using
-	the transaction id and output number listed in the input.
+  R: 25 bitcoin
 
-	For this first network transaction, it says that we're spending
-	from transaction 'eagle33' and output number zero.
+  Ok, então temos 25 bitcoin para gastar nas saídas desta transação.
 
-	Where can we see how much output zero on the 'eagle33' transaction
-	is worth?
+  Há mais uma coisa a verificar antes de passarmos para as saídas:
+  a assinatura desta transação é válida?
 
-	A: Find the output in the UTXO set.
+  Parece que cometi um erro nesta transação: deixei a assinatura
+  de fora. Normalmente, quando recebemos transações com erros ou problemas da
+  rede, simplesmente as descartamos. Mas para esta, vamos fazer uma
+  exceção e assinar esta entrada. Usaremos os adesivos de chave
+  para representar uma assinatura, já que está desbloqueando o cadeado
+  que colocamos na saída que estamos gastando.
 
-	How much is the eagle33, zero'th output worth?
+  Qual adesivo de chave colorida devo usar para a assinatura desta entrada?
 
-	A: 25 bitcoin
+  R: a chave verde
 
-	Ok, so we have 25 bitcoin to spend in this transaction's outputs.
+  AÇÃO: Faça com que os nós coloquem o adesivo de chave verde no campo de assinatura para
+  a primeira entrada na transação 'cat72'.
+  ```
 
-	There's one more thing to verify before we move onto outputs:
-	is the signature on this transaction valid?
+### Saídas
 
-	It looks like I made a mistake on this transaction: I left the signature
-	off. Typically when we get transactions with errors or problems from
-	the network, we just throw them away. But for this one, let's make an
-	exception and go ahead and sign for this input. We'll use the key
-	stickers to stand for a signature, since it's unlocking the lock
-	we put on the output we're spending.
+Roteiro do Instrutor:
 
-	Which color key sticker should I use for this input's signature?
+  ```
+  Temos 25 bitcoin para gastar nas saídas desta transação.
+  Quantos bitcoin estamos travando nas saídas desta transação?
 
-	A: the green key
+  R: 24
 
-	ACTION: Have nodes put green key sticker on the signature field for
-	the first input on transaction 'cat72'.
+  Tínhamos 25 para travando, e estamos travando 24. Para onde vai aquele 1 bitcoin extra?
 
+  R: Está disponível para o minerador como taxas.
 
-### Outputs
-
-Instructor Script:
-
-	We have 25 bitcoin to spend in the outputs of this transaction.
-	How many bitcoin are we locking up in the outputs of this transaction?
-
-	A:  24
-
-	We had 25 to lock up, and we're locking up 24. Where does that extra 1 bitcoin
-	go to?
-
-	A: It's available for the miner to take as fees.
-
-	Let's write this fee amount on the back of transaction. It'll be useful
-	later when we start building our own blocks.
-
+  Vamos escrever esse valor da taxa no verso da transação. Será útil
+  mais tarde quando começarmos a construir nossos próprios blocos.
+  ```
 
 ### TXIDs
 
-Instructor Script:
+Roteiro do Instrutor:
 
-	The last thing to check on a transaction is that it has a good
-	transaction id. For this game, the transaction id, or txid, must be a
-	word plus a two digit number.
+  ```
+  A última coisa a verificar em uma transação é se ela tem um
+  ID de transação válido. Para este jogo, o ID da transação, ou txid, deve ser uma
+  palavra mais um número de dois dígitos.
 
-	Is the txid on this transaction ok?
+  O txid nesta transação está ok?
+  ```
 
+_Nota de Protocolo_: IDs de transação são calculados a partir dos dados da transação em si e identificam exclusivamente essa transação. Isso é feito usando um hash SHA256 do conteúdo da transação. Não temos uma maneira fácil de hash dos dados da transação, então simplesmente escolhemos um aleatório. Se os alunos escolherem o mesmo txid, você terá problemas. Isso pode ser bom ou não, dependendo. Geralmente deixo o caos + problemas ocorrerem por um tempo, para que os participantes possam experimentar as desvantagens de certas escolhas de protocolo (como permitir que haja txids duplicados).
 
-_Protocol Note_: Transaction ids are calculated from the transaction data
-itself and uniquely identify that transaction. This is done using a SHA256
-hash of a transaction's contents. We don't have an easy way to hash transaction
-data so instead we just pick a random one. If students pick the same txid,
-you will run into problems. This may be fine, or not, depending. Generally
-I let chaos + problems run for a bit, so participants can experience the
-downsides of certain protocol choices (like allowing there to be duplicate txids).
+Houve dois casos de IDs de transação duplicados no protocolo. Isso acontece quando as transações de coinbase são idênticas. O protocolo foi alterado para que isso não seja mais possível. Veja [BIP30](https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki) para mais detalhes.
 
-There have been two cases of duplicate transaction ids in the protocol. This
-happens when the coinbase transactions are identical. The protocol was changed
-so that this is no longer possible. See [BIP30](https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki) for more details.
+### Transações Válidas
 
+Roteiro do Instrutor:
 
-### Valid Transactions
+  ```
+  Se esta transação é válida, devemos marcá-la como tal. Vamos fazer
+  isso.
 
-Instructor Script:
+  AÇÃO: Pegue o carimbo auto-tintante Aprovado e marque esta transação de rede
+  como Aprovada.
+  ```
 
-	If this transaction is valid we should mark it as such. Let's do
-	that.
+## A Mempool
 
-	ACTION: Take the self-inking Approved stamp and mark this network
-	transaction Approved
+Roteiro do Instrutor:
 
+  ```
+  Agora que a transação está marcada como Aprovada, e somente depois que
+  uma transação é marcada como aprovada, estamos prontos para colocá-la na
+  Mempool.
 
-## The Mempool
+  A mempool é um local de espera para transações que estão esperando
+  para entrar em um bloco. É o conjunto de transações que são válidas
+  mas não confirmadas.
 
-Instructor Script:
+  Mempools têm um tamanho estrito, se você receber muitas transações
+  pode começar a descartar algumas delas.
 
-	Now that the transaction is marked as Approved, and only once
-	a transaction is marked as approved, we're ready to put into
-	the Mempool.
+  Quando um bloco é minerado, as transações são promovidas da
+  mempool para o conjunto UTXO. Isso abre espaço para novas transações
+  na mempool (se ela estava cheia).
 
-	The mempool is a holding pen for transactions that are waiting
-	to go into a block. It's the set of transactions that are valid
-	but unconfirmed.
+  AÇÃO: Coloque a primeira transação de rede na mempool.
+  ```
 
-	Mempools have a strict size, if you get too many transactions
-	you can start throwing some of them away.
+## Verificação de Saldo da Carteira
 
-	When a block gets mined transactions get promoted from the
-	mempool to the UTXO set. This opens up space for new transactions
-	in the mempool (if it was full).
+Roteiro do Instrutor:
 
-	ACTION: Place first network transaction into the mempool
+  ```
+  Agora temos uma transação confirmada no conjunto UTXO e uma
+  transação esperando para ser confirmada na mempool.
 
+  Olhando para ambas as transações confirmadas e não confirmadas,
+  levante a mão se você tem bitcoin bloqueado na sua
+  chave secreta.
 
-## Wallet Balance Check
+  NOTA: Todos os nós devem levantar a mão neste ponto.
 
-Instructor Script:
+  Ótimo. Estamos prontos para escrever nossa primeira transação.
+  ```
 
-	We've now got one confired transaction in the UTXO set and one
-	transaction waiting to be confirmed in the mempool.
+## Escrevendo Transações
 
-	Looking across both the confirmed and unconfirmed transactions,
-	raise your hand if you've got bitcoin locked up to your
-	secret key.
+Cada nó escreverá uma única transação para todo o seu grupo. Como uma nota de jogo, neste ponto os membros dos nós devem começar a assumir diferentes papéis ao realizar tarefas, etc. É útil para o funcionamento bem-sucedido do nó que isso aconteça (todos fazem trabalhos diferentes para ajudar o nó a funcionar).
 
-	NOTE: Every node should raise their hand at this point.
+Roteiro do Instrutor:
 
-	Great. We're ready to write our own first transaction.
+  ```
+  Agora que validamos nossa primeira transação, estamos prontos
+  para escrever uma nova.
 
+  Precisaremos de um cartão de transação em branco para isso. Também
+  precisaremos ter uma saída que possamos gastar com nossa chave
+  privada.
 
-## Writing Transactions
+  AÇÃO: Pegue um cartão de transação em branco e levante-o,
+  também pegue a transação gênese do conjunto UTXO
+  e levante-a para que todos possam ver.
 
-Each node will write a single transaction for their whole group.
-As a gameplay note, at this point members of nodes should start
-to take different roles in doing tasks etc. It's useful for successful
-node operation that this happens (everyone does different work
-to help the node run).
+  Vamos escrever nossa primeira transação.
 
+  Primeiro, precisaremos de um txid. Escolha um txid aleatório para esta transação.
 
-Instructor Script:
+  AÇÃO: Nós escrevemos um txid.
 
-	Now that we've validated our first transaction, we're ready
-	to write a new one.
+  Depois de escolher um txid, você precisará preencher as informações
+  para a saída que está gastando. É permitido gastar saídas não confirmadas
+  (de transações na mempool).
 
-	We'll need a blank transaction card for this. We'll also
-	need to have an output that we can spend with our private
-	key.
+  AÇÃO: Nós adicionam o txid e o número da saída da saída que estão gastando.
+  Ande por aí e certifique-se de que estão fazendo a coisa certa.
 
-	ACTION: Pick up a blank transaction card and hold it up,
-	also pick up the genesis transaction out of the UTXO set
-	and hold it up so everyone can see.
+  Finalmente, você precisará criar algumas saídas. Para esta transação,
+  todos vocês estão me pagando um bitcoin, como pagamento por este LARP.
 
-	Let's write our first transaction.
+  Para me enviar bitcoin, você precisará saber meu endereço de bitcoin.
 
-	First we'll need a txid. Pick a random txid for this transaction.
+  AÇÃO: Ande por aí e entregue a cada nó um adesivo de cadeado preto.
+  (Sua chave privada é o adesivo de chave preto.)
 
-	ACTION: Nodes write down a txid.
+  AÇÃO: Nós devem adicionar uma saída com valor 1 e
+  com o adesivo de cadeado preto como chave pública.
+  ```
 
-	After you've chosen a txid, you'll need to fill in information
-	for the output that you're spending. It's fine to spend unconfirmed
-	outputs (from transactions in the mempool).
+### Saídas de Troco
 
-	ACTION: Nodes add txid and output number of output they're spending.
-	Walk around and make sure they're doing the right thing.
+No bitcoin, se há bitcoin sobrando após você enviar dinheiro para o cadeado desejado, você precisa criar uma saída de troco.
 
-	Finally, you'll need to make some outputs. For this transaction,
-	you're all paying me one bitcoin, as payment for this LARP.
+Às vezes é divertido se os nós esquecerem de adicionar uma saída de troco, pois eles descobrem muito rapidamente que esse dinheiro acaba indo para o minerador.
 
-	To send me bitcoin, you'll need to know my bitcoin address.
+Se você quiser causar um pouco de caos, pode omitir esta seção nas suas instruções.
 
-	ACTION: Walk around and hand every node a black lock sticker.
-	(Your private key is the black key sticker.)
+Roteiro do Instrutor:
 
-	ACTION: Nodes should add an output of amount 1 and
-	with the black lock sticker as the pubkey.
+  ```
+  Quantos bitcoins estávamos gastando originalmente?
 
+  R: 8 bitcoin
 
-### Change Outputs
+  E agora você está me enviando 1 bitcoin. Para onde vão os
+  bitcoins restantes?
 
-In bitcoin, if there's bitcoin left over after you've sent money
-to the lock that you wanted to, you need to create a change output.
+  R: Para o minerador, atualmente.
 
-It's sometimes amusing if nodes forget to add a change output, as they
-discover very quickly that that money ends up going to the miner.
+  Se quisermos não enviar todos esses 7 bitcoins para o minerador,
+  como devemos evitar isso?
 
-If you want to cause some chaos, you can omit this section in your
-instructions.
+  R: criando outra saída
 
-Instructor Script:
+  Para onde devemos enviar o bitcoin nessa outra saída?
 
-	We had how many bitcoin that we were originally spending?
+  R: Para qualquer lugar que você quiser! Mas, provavelmente, de volta para sua própria carteira.
 
-	A: 8 bitcoin
+  Observe que para o LARP, usaremos apenas números inteiros,
+  sem decimais.
 
-	And now you're sending 1 bitcoin to me. Where are the rest
-	of the bitcoin going?
+  AÇÃO: Nós adicionam uma saída de troco à sua transação e a bloqueiam
+  no adesivo de cadeado que corresponde ao seu cartão de chave secreta.
+  ```
 
-	A: To the miner, currently.
+### Taxas de Transação
 
-	If we wanted to not send all of that 7 bitcoin to the miner,
-	how should we prevent that?
+Às vezes também é divertido se os nós esquecerem de incluir uma taxa para o minerador, mas apenas se alguns dos nós se lembrarem. Isso torna mais fácil para os nós que estão construindo blocos tomar decisões sobre quais transações incluir em seu bloco (dica: geralmente as de taxa baixa).
 
-	A: by making another output
+Eu não forçaria essa situação a ocorrer, mas é interessante quando acontece naturalmente.
 
-	Where should we send the bitcoin in that other output?
+Roteiro do Instrutor:
 
-	A: Anywhere you want! But most likely back into your own wallet
+  ```
+  Lembre-se de que você provavelmente vai querer deixar algum bitcoin
+  para o minerador, caso contrário, ele pode não incluir sua transação em um bloco.
+  ```
 
-	Note that for the LARP, we're only going to use whole number,
-	no decimals.
+## Adicionando Transações à Mempool
 
-	ACTION: Nodes add a change output to their transaction and lock
-	it to the lock sticker that matches their secret key card.
+Roteiro do Instrutor:
 
+  ```
+  Agora que escrevemos nossa transação, precisamos adicioná-la
+  à nossa mempool. Isso iniciará o processo de enviá-la
+  pela rede.
 
-### Transaction Fees
+  Antes de podermos colocar *qualquer* transação, inclusive a nossa, na mempool,
+  temos que verificá-la primeiro.
 
-It's also sometimes amusing if nodes forget to include a miner fee,
-but only if some of the nodes remembered. This makes it easier for
-nodes that are building blocks to make decisions about what transactions
-to include in their block (hint: usually the low fee ones)
+  Vamos verificar esta transação.
 
-I wouldn't force this situation to occur, but it is nice when it happens
-naturally.
+  Ela tem um txid válido?
 
-Instructor Script:
+  AÇÃO: Nós verificam se a transação que acabaram de escrever tem um txid válido (deve
+  ser uma palavra seguida por um número de dois dígitos, como 'hello11' ou 'jet89').
 
-	Remember that you're probably going to want to leave out some bitcoin
-	for the miner, otherwise they might not include your transaction in a block.
+  Ela tem uma entrada válida. Aquela que está listada na mempool ou no
+  conjunto UTXO. Também precisa estar assinada.
 
+  AÇÃO: Nós verificam se sua entrada está ok.
 
-## Adding Transactions to the Mempool
+  Finalmente, não podemos bloquear mais bitcoin nas saídas do que tínhamos
+  disponível para gastar nas entradas.
 
-Instructor Script:
+  AÇÃO: Nós verificam novamente seus valores.
 
-	Now that we've gotten our transaction written, we need to add it
-	to our mempool. That will kick off the process of sending it out
-	across the network.
+  Se todas essas verificações passarem, marque sua transação como válida e coloque-a
+  na mempool.
 
-	Before we can put *any* transaction, our own included, into the mempool
-	we have to verify it first.
+  AÇÃO: Use o carimbo auto-tintante Aprovado para marcar a transação que acabamos
+  de escrever como aprovada e coloque-a na mempool. A mempool de todos
+  agora deve ter duas transações.
+  ```
 
-	Let's verify this transaction.
+## Em Resumo
 
-	Does it have a valid txid?
+Nesta parte do LARP, nós:
 
-	ACTION: Nodes check if transaction they just wrote has a valid txid (must
-	be a word then a two digit number, such as 'hello11' or 'jet89')
-
-	Does it have a valid input. That's one that's listed in either the
-	mempool or the UTXo set. It also needs to be signed.
-
-	ACTION: Nodes check that their input is ok.
-
-	Finally we can't lockup more bitcoin in the outputs than we had
-	available to spend in the inputs.
-
-	ACTION: Nodes double check their amounts.
-
-	If all of those checks pass, mark your transaction as valid and put it
-	into the mempool.
-
-	ACTION: Use self-inking Approved stamp to mark transaction we just
-	wrote as approved, and place it in the mempool. Everyone's mempool
-	should now have two transactions into it.
-
-
-## In Sum
-
-In this portion of the LARP we've:
-
-- Received our first 'untrusted' transaction
-- Validated the transaction
-- Observed how inputs value comes from a different transaction's output
-- Learned what the mempool is for
-- Written our first transaction
-- Made a change output
+- Recebemos nossa primeira transação 'não confiável'
+- Validamos a transação
+- Observamos como o valor das entradas vem da saída de outra transação
+- Aprendemos para que serve a mempool
+- Escrevemos nossa primeira transação
+- Fizemos uma saída de troco
