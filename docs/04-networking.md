@@ -1,345 +1,331 @@
-# Networking - peer to peer
+# Rede - ponto a ponto
 
-Bitcoin is a distributed peer to peer network.
+Bitcoin é uma rede distribuída ponto a ponto.
 
-In this phase of the LARP, we'll build a real peer
-to peer network and start exchanging peer messages.
+Nesta fase do LARP, construiremos uma rede ponto a ponto real e começaremos a trocar mensagens de pares.
 
-Estimated time: 30m+
+Tempo estimado: 30 minutos+
 
+## Índice
 
-## Table of Contents
+  * [Materiais Usados](#materiais-usados)
+  * [Conectando-se](#conectando-se)
+  * [Objetivos Desta Fase](#objetivos-desta-fase)
+  * [Enviando Mensagens de Rede](#enviando-mensagens-de-rede)
+  * [Recebendo Mensagens de Rede](#recebendo-mensagens-de-rede)
+    * [Passos para Validar uma Transação](#passos-para-validar-uma-transação)
+  * [Deixando a Rede Funcionar](#deixando-a-rede-funcionar)
+    * [Erros Comuns e Problemas](#erros-comuns-e-problemas)
+  * [Verificando o Estado Global da Mempool](#verificando-o-estado-global-da-mempool)
+    * [Quem Tem Mais Transações?](#quem-tem-mais-transações)
+    * [A Transação de Quem Está em Mais Mempools?](#A-Transação-de-Quem-Está-em-Mais-Mempools)
+  * [Em Resumo](#em-resumo)
 
-  * [Materials Used](#materials-used)
-  * [Getting Connected](#getting-connected)
-  * [Goals For This Phase](#goals-for-this-phase)
-  * [Sending Network Messages](#sending-network-messages)
-  * [Receiving Network Messages](#receiving-network-messages)
-    * [Steps for Validating a Transaction](#steps-for-validating-a-transaction)
-  * [Letting the Network Run](#letting-the-network-run)
-    * [Common Mistakes and Issues](#common-mistakes-and-issues)
-  * [Checking Global Mempool State](#checking-global-mempool-state)
-    * [Who Has the Most Txs?](#who-has-the-most-txs)
-    * [Who's Transaction Is In The Most Mempools?](#whos-transaction-is-in-the-most-mempools)
-  * [In Sum](#in-sum)
+## Materiais Usados
 
+Nesta fase do LARP, usaremos os seguintes itens:
 
-## Materials Used
+  - corda
+  - tesouras
+  - cartões de rede
+  - argolas de fichário
+  - marcador de apagar a seco
+  - suprimentos para copiar transações
+    - canetas esferográficas
+    - cartões de transação em branco
+    - adesivos de cadeado
+    - adesivos de chave
 
-In this phase of the LARP, we'll use the following items:
+## Conectando-se
 
-	- string
-	- scissors
-	- network cards
-	- loose binder rings
-	- dry erase marker
-	- supplies to copy transactions
-		- ballpoint pens
-		- blank tx cards
-		- lock stickers
-		- key stickers
+Antes de começar esta fase, encontre a corda e as tesouras.
 
-## Getting Connected
+Roteiro do Instrutor:
 
-Before you begin this phase, find the string and scissors.
+  ```
+  Até agora, estamos fazendo transações para nossos próprios nós locais.
+  Mas o Bitcoin é uma rede ponto a ponto. Isso significa que quaisquer
+  transações ou blocos estão no nosso nó, bem como em outros
+  nós.
 
-Instructor Script:
+  Você notará que agora a mempool de todos só tem
+  uma transação que eles mesmos escreveram. Isso não é muito
+  útil para ninguém - precisamos que outros nós possam minerar
+  e incluir sua transação.
 
-	So far we've been making transactions for our own local nodes.
-	But Bitcoin is a peer to peer network. This means that any
-	transactions or blocks are in our node as well as in other
-	nodes.
+  Para fazer isso, precisamos conectar todos os nós.
+  A maneira como o bitcoin faz isso é falar com uma lista pré-definida
+  de nós conhecidos, que então lhes dizem com quem mais se conectar.
 
-	You'll notice that right now everyone's mempool only has
-	a transaction that they wrote themselves. This isn't very
-	useful for anyone -- we need other nodes to be able to mine
-	and include your transaction.
+  Neste exemplo, vou simplesmente conectar todos vocês.
 
-	To do this we're going to need to get everyone's nodes
-	connected. The way bitcoin does this is they talk to
-	a preset list of known nodes, who then tells them
-	who else to connect to.
+  AÇÃO: Usando a corda e as tesouras, crie conexões
+  entre todas as mesas dos nós. Idealmente, cada nó
+  terá duas cordas que chegam à sua mesa,
+  no máximo, qualquer nó terá três.
+  ```
 
-	In this example, I'm just going to connect you all.
+## Objetivos Desta Fase
 
-	ACTION: Using the string and scissors, create connections
-	between all of the node tables. Ideally, each node
-	will have two strings that come to their table,
-	at a maximum any one node will have three.
+Às vezes é útil para os jogadores terem objetivos de curto prazo, caso contrário, todas as ações que estão realizando começam a perder o foco.
 
-## Goals For This Phase
+Nesta fase, tornamos o envio + recebimento de transações e a adição delas à sua mempool orientada por objetivos.
 
-Sometimes it's useful for players to have short term goals,
-otherwise all the actions that they're taking start losing focus.
+Roteiro do Instrutor:
 
-In this phase, we make sending + receiving transactions and
-adding them to your mempool goal oriented.
+  ```
+  Temos transações na nossa mempool. Precisamos colocar
+  a transação na nossa mempool na mempool de
+  todos os outros nós na rede.
 
-Instructor Script:
+  No final desta fase, cada nó deve ter
+  7* transações na sua mempool.
 
-	We've got transactions in our mempool. We need to get
-	the transaction in our mempool into the mempool of
-	every other node on the network.
+  NOTA: o número de transações em cada mempool
+  será igual ao número de nós jogando mais
+  um, pela Primeira Transação de Rede.
 
-	By the end of this phase, every node should have
-	7* transactions in their mempool.
+  Existem duas maneiras de 'vencer' esta rodada do
+  LARP. Você pode ser o nó que tem sua
+  transação na mempool do maior número de outros nós.
 
-	NOTE: number of transactions in each mempool
-	will be equal to the number of nodes playing plus
-	one, for the First Network Transaction.
+  Ou você pode ter todas as transações na sua mempool.
 
-	There are two ways you can 'win' this round of the
-	LARP. You can either be the node that has their
-	transaction into the mempool of the most other nodes.
+  Todos entendem o objetivo?
 
-	Or you can have all the transactions in your mempool.
+  Vamos começar a enviar mensagens de rede.
+  ```
 
-	Does everyone understand the goal?
+## Enviando Mensagens de Rede
 
-	Let's start sending network messages.
+Vamos enviar algumas mensagens!
 
+Roteiro do Instrutor:
 
-## Sending Network Messages
+  ```
+  Cada nó tem quatro mensagens de rede. São elas:
+  - Eu Tenho Transações
+  - Enviar Transações
+  - Eu Tenho Blocos
+  - Enviar Blocos
 
-Let's send some messages around!
+  Para mover transações, usaremos apenas as mensagens de Transação.
 
-Instructor Script:
+  As mensagens de rede funcionam da seguinte forma.
 
-	Each node has four network messages. They're the
-	- I Have Transactions message
-	- Send Transactions message
-	- I Have Blocks message
-	- Send Blocks message
+  Assim que uma nova transação chegar à sua mempool,
+  você deve enviar uma nova mensagem de Eu Tenho Transações
+  para todos os nós aos quais está conectado, informando-os
+  sobre *todas* as transações na sua mempool.
 
-	For moving transactions around we'll only use the Transaction
-	messages.
+  Vamos fazer isso para este primeiro nó.
 
-	The network messages work as follows.
+  AÇÃO: Escolha um nó aleatoriamente e ande perto da mesa dele.
+  Pegue ambas as transações da mempool: a
+  Primeira Transação de Rede e a transação que o nó
+  fez para si mesmo.
 
-	As soon as a new transaction lands into your mempool,
-	you should send out a new I Have Transactions message
-	to all the nodes you're connected to, letting them
-	know *all* of the transactions in your mempool.
+  Este nó tem duas transações na sua mempool.
 
-	Let's make one for this first node.
+  AÇÃO: Leia os dois txids das transações.
 
-	ACTION: Pick a node at random and walk near their table.
-	Pick up both transactions from the mempool: the
-	First Network Transaction and the transaction that node
-	made for themselves.
+  Eles precisam informar seus pares sobre as transações
+  na sua mempool.
 
-	This node has two transactions in their mempool.
+  AÇÃO: Pegue um cartão de Eu Tenho Transações e escreva os
+  txids das duas transações no cartão, usando o
+  marcador de apagar a seco. Levante-o para que todos possam ver.
 
-	ACTION: Read off the two txids of the transactions.
+  Ok, agora preciso enviar meu cartão de Eu Tenho Transações para
+  todos os meus pares.
 
-	They need to let their peers know about the transactions
-	in their mempool.
+  AÇÃO: Pegue uma argola de fichário, prenda o cartão de rede
+  nela. Coloque a argola em qualquer corda
+  que o nó escolhido tenha a ponta, e
+  envie-a pela corda para o nó que está segurando a
+  outra ponta da corda.
+  ```
 
-	ACTION: Take an I Have Transactions card and write the
-	txids for both transactions onto the card, using the
-	dry erase marker. Hold this up so everyone can see.
+## Recebendo Mensagens de Rede
 
-	Ok, now I need to send my I Have Transactions card to
-	all my peers.
+Receber uma mensagem de rede muitas vezes exige que um nó faça algum trabalho.
 
-	ACTION: Take a loose binder ring, attach the Network
-	Card to it. Put the binder ring onto any string
-	that the node you've chosen has the end of, and
-	send it down the wire to the node that's holding the
-	other end of the string.
+Roteiro do Instrutor:
 
+  ```
+  AÇÃO: Vá até o outro nó que recebeu
+  a mensagem. Um dos jogadores desta mesa deve
+  agora estar segurando a mensagem.
 
-## Receiving Network Messages
+  Depois de receber uma mensagem de rede, você deve
+  verificar se já conhece as transações
+  listadas.
 
-Getting a network message often requires a node to do
-some work.
+  Há alguma transação na lista na mensagem
+  de rede que você não conhece?
 
-Instructor Script:
+  R: Sim, o <txid da transação que o primeiro par fez>.
 
-	ACTION: Walk over to the other node that's received
-	the message. One of the players at this table should
-	now be holding the message.
+  NOTA: Eles já devem ter 'cat72' na mempool.
 
-	Once you've received a network message, you should
-	look to see if you already know about the transactions
-	listed.
+  Ok. Devemos pedir a este par para nos enviar esta transação.
+  Fazemos isso enviando de volta uma mensagem de rede.
+  Desta vez, você enviará a mensagem Enviar Transações.
 
-	Are there any transactions on the list on the network
-	message that you're unfamiliar with?
+  AÇÃO: Ajude o par receptor a colocar o txid da
+  transação que estão faltando no cartão de Enviar Transação
+  e envie-o de volta pela mesma corda para o par que
+  acabou de receber a mensagem de Eu Tenho Transação.
 
-	A: Yes, the <txid of transaction the first peer made>.
+  AÇÃO: Espere o par receber a mensagem e
+  pegá-la da corda.
+
+  Quando você recebe uma mensagem de Enviar Transação, se você
+  tiver essa transação, deve fazer uma cópia dela
+  e enviá-la pela corda para o nó que
+  a solicitou.
 
-	NOTE: They should already have 'cat72' in their mempool.
+  AÇÃO: Faça com que o nó faça uma cópia da transação
+  da sua mempool e a envie pela corda
+  de volta para o outro nó.
+  ```
 
-	Ok. We should ask this peer to send us this transaction.
-	We do this by sending them back a network message.
-	This time you'll send the Send Transactions message.
+## Recebendo uma Transação da Rede
 
-	ACTION: Help the receiving peer put the txid for the
-	transaction they're missing onto the Send Transaction
-	card + send it back over the same wire to the peer that
-	they just got the I Have Transaction message from.
+Na fase anterior, aprendemos a validar transações que recebemos da rede. Precisaremos repetir esses passos para cada transação que recebermos.
 
-	ACTION: Wait for the peer to receive the message and
-	get it off the wire.
+### Passos para Validar uma Transação
 
-	When you receive a Send Transaction message, if you
-	have this transaction, you should make a copy of it
-	and then send it over the wire to the peer to the
-	node that requested it.
+- Ela tem um txid válido? palavra + número de dois dígitos
+- Para cada entrada:
+  - Você consegue encontrar a saída correspondente na
+    mempool ou no conjunto UTXO?
+  - A assinatura corresponde ao cadeado?
+- Para as saídas:
+  - Cada saída está bloqueada com um cadeado colorido?
+  - O valor total das saídas é menor
+    que o valor total das entradas?
+- Escreva o valor total das taxas no verso da transação
+- Se a transação passar em todas as verificações, marque-a
+  como Aprovada e coloque-a na mempool
+- Se a transação NÃO passar em todas as verificações, rasgue-a
+  e descarte-a
 
-	ACTION: Have node make a copy of the transaction
-	out of their mempool and send it over the wire
-	back to the other node.
+Roteiro do Instrutor:
 
+  ```
+  AÇÃO: Volte para o nó que recebeu a
+  transação. Faça-os passar pelo processo de validação
+  novamente. Como lembrete, veja acima o que o
+  processo deve ser.
 
-## Receiving a Transaction From the Network
+  Observe que, uma vez que você validar uma nova transação e
+  colocá-la na sua mempool, deve notificar todos os seus
+  pares sobre o estado atual da sua mempool.
 
-In the last phase, we learned how to validate transactions
-that we received from the network. We'll need to repeat
-those steps for every transaction we receive.
+  Isso significa enviar uma nova mensagem de Eu Tenho Transação
+  para cada par, com uma lista de todas as transações
+  na sua mempool.
+  ```
 
-### Steps for Validating a Transaction
+## Deixando a Rede Funcionar
 
-- Does it have a valid txid? word + two digit number
-- For each input:
-	- Can you find the corresponding output in the
-	  mempool or utxoset?
-	- Does the signature match the lock?
-- For the outputs:
-	- Is each output locked with a colored lock?
-	- Is the total amount in the outputs less than
-	  the total amount in the inputs.
-- Write the total amount of fees on the back of the transaction
-- If this transaction passes all the checks, mark it
-  Approved + place it into the mempool
-- If this transaction DOES NOT pass all the checks, tear
-  it up + discard it
+É hora de deixar os outros nós começarem a repetir o processo, fazendo a rede ganhar vida com mensagens e cada um dos nós se ocupando com o trabalho de enviar e responder mensagens.
 
-Instructor Script:
+Todos viram um ciclo inteiro de contar sobre transações, solicitar transações, copiar uma transação, e enviá-la para seu par. Agora é a vez deles.
 
-	ACTION: Walk back to the node that's received the
-	transaction. Have them walk through the validation
-	process again. As a reminder, see above for what the
-	process should be.
+Roteiro do Instrutor:
 
-	Note that once you've validated a new transaction and
-	put it into your mempool, you should notify all of your
-	peers about what your current mempool set is.
+  ```
+  AÇÃO: Instrua os nós a começar a enviar mensagens de Eu Tenho
+  Transação e responder a solicitações de pares.
 
-	This means sending out a new I Have Transaction message
-	for each peer, with a list of all the transactions
-	in your mempool.
+  AÇÃO: Dê aos nós de 5 a 8 minutos para trabalhar no envio e recebimento de transações.
+  Ande por aí e ajude os nós que estão tendo problemas.
 
+  AÇÃO: Após 5 a 8 minutos, pause o jogo para que cada nó possa
+  descobrir quantas transações eles têm.
+  ```
 
-## Letting the Network Run
+### Erros Comuns e Problemas
 
-It's time to let the other node start repeating the process,
-making the network come alive with messages and each of the
-nodes getting busy with the work of sending out and responding
-to messages.
+Esta é a primeira fase em que as coisas podem começar a se desintegrar. Redes descentralizadas são um pouco confusas. Aproveite esta oportunidade para andar por aí e garantir que os nós não estão cometendo alguns erros comuns ou problemas que acontecem, que estão listados aqui.
 
-Everyone has seen an entire cycle of telling about
-transactions, asking for transactions, copying a transaction,
-and sending it to their peer. It's their turn now.
+#### O que observar
 
-Instructor Script:
+- Uma conexão cai.
+  Tudo bem, pegue-a de volta. Às vezes é
+  divertido comentar "oh, parece que você perdeu a conexão".
+- Nós esquecem qual conexão de entrada enviou uma mensagem.
+  Incentive os nós a criar uma maneira de lembrar qual conexão
+  enviou qual mensagem. Computadores têm esse mesmo problema. Uma maneira comum
+  que eles resolvem isso é dar a cada conexão um número e então
+  rotular as mensagens de entrada com esse número.
+- Nós não fazem uma transação, mas enviam a original
+  Faça-os enviar uma mensagem de Enviar Transação para o par para obter
+  uma cópia da transação de volta. Depois de recebê-la,
+  eles devem validá-la novamente antes de colocá-la na sua
+  mempool.
+- Um nó recebe uma transação já carimbada como Aprovada.
+  Eles devem verificar novamente se a transação está correta.
+- Um nó recebe uma transação inválida (muito dinheiro nas saídas, faltando
+  cadeado ou chaves)
+  Tecnicamente, eles deveriam rasgar a transação E interromper a conexão
+  com o nó que enviou os dados incorretos. Cabe ao nó decidir
+  quão tolerante ele quer ser em relação a punir erros. Notavelmente no
+  protocolo bitcoin, não enviamos mensagens de erro de volta. Apenas paramos
+  de falar com esse par.
+- As transações não estão chegando a toda a rede.
+  Os nós muitas vezes esquecem que precisam enviar outra rodada de mensagens de Eu Tenho
+  Transação após *cada* nova transação que é adicionada
+  à mempool. Pode ser útil lembrar os nós de fazer isso.
 
-	ACTION: Instruct the nodes to start sending out I Have
-	Transaction messages and responding to peer requests.
+## Verificando o Estado Global da Mempool
 
-	ACTION: Give nodes 5-8m to work on sending and receiving transactions.
-	Walk around and help nodes that are having trouble.
+Vamos obter uma visão do que a rede parece. É realmente difícil fazer isso na rede bitcoin, mas podemos fazer isso facilmente com um grupo de pessoas.
 
-	ACTION: After 5-8m, pause the game so each node can
-	figure out how many transactions they have.
+### Quem Tem Mais Transações?
 
+Nota: Veja a seção em [Configuração](docs/01-setup#rewards-for-nodes) sobre o que usar como Recompensa.
 
-### Commons Mistakes and Issues
+Roteiro do Instrutor:
 
-This is the first phase where things might start to come unglued.
-Decentralized networks are a bit messy. Take this opportunity to
-walk around and make sure nodes aren't making some common mistakes
-or problems that happen, which are listed here.
+  ```
+  Ok, vamos ver quem tem mais transações na sua mempool.
 
-#### What to look out for
+  AÇÃO: Aponte para cada nó um por um. Faça-os contar e
+  dizer o número de transações na sua mempool.
 
-- A connection drops.
-	That's fine, pick it back up. It's sometimes
-    fun to comment that "oh it looks like you dropped the connection".
-- Nodes forget which incoming connection sent them a message.
-	Encourage nodes to come up with a way to remember which connection
-	sent what message. Computers have this same problem. A common way
-	that they solve it is to give each connection a number and then
-	label the incoming messages with that number.
-- Nodes don't make a transaction, but rather send their original
-	Have them send a Send Transaction message to the peer to get
-	them to send a copy of the transaction back. Once they receive
-	it they should validate it again before placing it into their
-	mempool.
-- A node receives a transaction already stamped with Approved.
-	They should re-verify the transaction is correct.
-- A node receives an invalid transaction (too much money in outputs, missing
-  lock or keys)
-	Technically they should rip up the transaction AND drop the connection
-	to the node that sent them the bad data. It's up to the node how
-	lenient they want to be about punishing mistakes. Notably in the
-	bitcoin protocol, we don't send back error messages. We just stop
-	speaking to that peer.
-- Transactions aren't making it all the way across the network.
-    Nodes often forget they need to send another round of I Have
-	Transaction messages after *every* new transaction that's added
-	to the mempool. It might be useful to remind nodes to do this.
+  AÇÃO: Recompense o nó com mais transações na sua
+  mempool com uma Recompensa. Idealmente, cada nó terá o mesmo
+  número de transações, então todos devem ser recompensados.
+  ```
 
+### A Transação de Quem Está em Mais Mempools?
 
-## Checking Global Mempool State
+Roteiro do Instrutor:
 
-Let's get a picture of what the network looks like. It's really
-hard to actually do this on the bitcoin network, but we can do it
-easily with a group of people.
+  ```
+  AÇÃO: Faça com que cada nó, por sua vez, diga qual é o txid da
+  transação que escreveu. Faça com que os outros nós
+  levantem a mão se tiverem essa transação na sua
+  mempool.
 
-### Who Has the Most Txs?
+  AÇÃO: Mantenha o controle de quantos nós levantam a mão para
+  cada transação. Depois que todos os nós disseram seus IDs de transação,
+  recompense o nó (ou nós) que têm sua transação
+  na maioria das mempools com uma Recompensa. Idealmente, cada transação
+  estará na mempool de cada nó, então todos os nós devem empatar.
+  Isso raramente acontece.
+  ```
 
-Note: See section in [Setup](docs/01-setup#rewards-for-nodes) about what to use as a Reward.
+## Em Resumo
 
-Instructor Script:
+Agora temos algumas mempools cheias e experimentamos como é enviar e receber mensagens de rede. Estamos prontos para seguir em frente para construir templates de bloco.
 
-	Ok, let's see who's got the most transactions in their mempool.
+Nesta parte do LARP, nós:
 
-	ACTION: Point at each node one by one. Have them count and
-	tell you the number of transactions in their mempool.
-
-	ACTION: Reward the node with the most transactions in their
-	mempool with a Reward. Ideally every node has the same
-	number of transactions, so they should all be rewarded.
-
-
-### Who's Transaction Is In The Most Mempools?
-
-Instructor Script:
-
-	ACTION: Have each node, in turn say what the txid of the
-	transaction they wrote is. Have the other nodes
-	raise their hands if they have that transaction in their
-	mempool.
-
-	ACTION: Keep track of how many nodes raise their hands for
-	each transaction. After every node has said their transaction
-	id, reward the node (or nodes) that have their transaction
-	in the most mempools with a Reward. Ideally, every transaction
-	will be in every other node's mempool, so every node should tie.
-	This rarely happens.
-
-
-## In Sum
-
-We've now got some full mempools and have experienced what sending
-and receiving network messages is like. We're ready to move on to
-building block templates.
-
-In this portion of the LARP we've:
-
-- Gotten connected to a peer to peer network
-- Sent and received our first network messages
-- Practiced verifying network transactions
-- Filled up our mempools with transactions to be mined
+- Conectamos-nos a uma rede ponto a ponto
+- Enviamos e recebemos nossas primeiras mensagens de rede
+- Praticamos a verificação de transações de rede
+- Preenchemos nossas mempools com transações para serem mineradas
